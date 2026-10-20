@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — Knowledge Studio AI</title>
+  
+  <!-- Google Fonts: Newsreader (Serif) & Plus Jakarta Sans (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f4f8f5',
+              100: '#e5efe9',
+              200: '#cce1d5',
+              300: '#a3c7b3',
+              400: '#73a78d',
+              500: '#4e886d',
+              600: '#3c6e57',
+              700: '#315746',
+              800: '#284638',
+              900: '#1b342a',
+              950: '#13241d',
+            },
+            tealAccent: '#2b6579',
+            canvas: '#faf8f2',
+            cardBg: '#f6f4ec',
+          },
+          boxShadow: {
+            'soft': '0 8px 24px -4px rgba(27, 54, 43, 0.05), 0 2px 8px -2px rgba(27, 54, 43, 0.03)',
+            'float': '0 16px 36px -8px rgba(22, 45, 36, 0.09), 0 6px 14px -3px rgba(22, 45, 36, 0.04)',
+            'deep': '0 25px 50px -12px rgba(18, 38, 30, 0.16)',
+            'badge': '0 10px 25px -5px rgba(22, 45, 36, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #faf8f2;
+      color: #273931;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #cce1d5;
+      color: #162d23;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased bg-[#faf8f2] text-[#273931] min-h-screen flex flex-col justify-between selection:bg-[#d0e5d9] selection:text-[#183429]">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="w-full pt-6 pb-4 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto flex items-center justify-between relative z-50">
+    <!-- Logo linking back to Home -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 flex items-center justify-center text-[#1c382e] transition-transform duration-300 group-hover:scale-105">
+        <svg class="w-9 h-9" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 4C14 4 11 6.5 9.5 9.5C7.5 10 5.5 12 5.5 14.8C5.5 16.5 6.3 18 7.5 19C6.8 20.2 6.5 21.6 6.5 23C6.5 26.2 9.2 29 12.5 29C13.3 29 14.1 28.8 14.8 28.4C15.8 30 17.5 31 19.5 31C22.2 31 24.5 29.2 25.1 26.8C25.7 27 26.3 27.1 27 27.1C30 27.1 32.5 24.7 32.5 21.7C32.5 20.3 32 19 31.1 18.1C31.9 17 32.5 15.5 32.5 13.8C32.5 10.7 30 8.3 27 8.3C26.4 8.3 25.8 8.4 25.2 8.6C23.8 5.8 21.2 4 18 4Z" stroke="#1d382e" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M18 6V29" stroke="#1d382e" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M14 11.5C15.5 13 16.8 14.8 18 16" stroke="#1d382e" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M22 11.5C20.5 13 19.2 14.8 18 16" stroke="#1d382e" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M11 17.5C13 18.8 16 19.8 18 21.5" stroke="#1d382e" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M25 17.5C23 18.8 20 19.8 18 21.5" stroke="#1d382e" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-serif text-[22px] font-semibold text-[#18342a] tracking-tight leading-none">Knowledge Studio</span>
+        <span class="text-[8.5px] tracking-[0.3em] font-semibold text-[#546e62] uppercase mt-1">RAG · SEARCH · AI</span>
+      </div>
+    </a>
+
+    <!-- Right Header Action -->
+    <div class="flex items-center gap-4 text-sm font-medium">
+      <span class="text-[#5b6e65] hidden sm:inline">Already registered?</span>
+      <a href="login.html" class="border border-[#244238] text-[#244238] hover:bg-[#244238] hover:text-white px-5 py-2 rounded-full transition-all duration-200">
+        Log In
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN AUTH CONTAINER ==================== -->
+  <main class="flex-1 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-8 w-full flex items-center justify-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full">
+      
+      <!-- ==================== LEFT COLUMN: BRAND STORY & PERKS ==================== -->
+      <div class="lg:col-span-6 space-y-8 hidden lg:block pr-6">
+        <div>
+          <a href="index.html" class="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-[#476b5d] uppercase hover:text-[#1d382e] transition-colors mb-5 group">
+            <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+            </svg>
+            <span>Back to Homepage</span>
+          </a>
+
+          <h1 class="font-serif text-4xl xl:text-5xl text-[#18342a] leading-[1.18] tracking-tight mb-4">
+            Start turning raw sources into<br />
+            <span class="text-[#2b6579]">verified answers.</span>
+          </h1>
+          <p class="text-[#556960] text-[15.5px] leading-relaxed max-w-lg">
+            Join students, researchers and developers using Knowledge Studio for multi-source retrieval augmented generation with automatic source citation.
+          </p>
+        </div>
+
+        <!-- 3 Feature Cards Showcase -->
+        <div class="grid grid-cols-3 gap-3">
+          <!-- PDF -->
+          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-[#e5ebe7] shadow-soft">
+            <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+            </div>
+            <div class="text-xs font-bold text-[#1b342a]">PDF Parsing</div>
+            <div class="text-[10.5px] text-[#62756d] mt-0.5">Tables &amp; Text</div>
+          </div>
+
+          <!-- Web -->
+          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-[#e5ebe7] shadow-soft">
+            <div class="w-8 h-8 rounded-lg bg-cyan-50 text-[#218195] flex items-center justify-center mb-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+            </div>
+            <div class="text-xs font-bold text-[#1b342a]">Web Crawling</div>
+            <div class="text-[10.5px] text-[#62756d] mt-0.5">Live Sites</div>
+          </div>
+
+          <!-- YouTube -->
+          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-[#e5ebe7] shadow-soft">
+            <div class="w-8 h-8 rounded-lg bg-red-50 text-[#e52d27] flex items-center justify-center mb-2">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="text-xs font-bold text-[#1b342a]">YouTube Ingest</div>
+            <div class="text-[10.5px] text-[#62756d] mt-0.5">Transcripts</div>
+          </div>
+        </div>
+
+        <!-- 4 Step Pipeline Summary -->
+        <div class="bg-[#f5f3ec] rounded-2xl p-4 border border-[#e6e2d4] flex items-center justify-between text-xs font-medium text-[#445b50]">
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-[#244238] text-white flex items-center justify-center text-[10px] font-bold">1</span>
+            <span>Ingest</span>
+          </div>
+          <span class="text-[#88a395]">→</span>
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-[#244238] text-white flex items-center justify-center text-[10px] font-bold">2</span>
+            <span>Process</span>
+          </div>
+          <span class="text-[#88a395]">→</span>
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-[#244238] text-white flex items-center justify-center text-[10px] font-bold">3</span>
+            <span>Retrieve</span>
+          </div>
+          <span class="text-[#88a395]">→</span>
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-[#244238] text-white flex items-center justify-center text-[10px] font-bold">4</span>
+            <span>Generate</span>
+          </div>
+        </div>
+
+        <!-- Verified Badge -->
+        <div class="flex items-center gap-3 text-xs text-[#526a5e]">
+          <div class="w-6 h-6 rounded-full bg-[#dbece1] text-[#285d43] flex items-center justify-center font-bold">
+            ✓
+          </div>
+          <span>Built &amp; maintained by Data Science &amp; Web Tech students at COMSATS University</span>
+        </div>
+      </div>
+
+      <!-- ==================== RIGHT COLUMN: SIGNUP FORM CARD ==================== -->
+      <div class="lg:col-span-6 flex justify-center lg:justify-end">
+        <div class="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 shadow-float border border-[#e5ebe7] relative">
+          
+          <!-- Card Header -->
+          <div class="mb-7">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs tracking-[0.22em] font-bold text-[#4c7062] uppercase">
+                GET STARTED FREE
+              </span>
+              <a href="index.html" class="lg:hidden text-xs font-semibold text-[#2b6579] hover:underline">
+                ← Home
+              </a>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-[34px] text-[#18342a] leading-tight tracking-tight mb-2">
+              Create your account
+            </h2>
+            <p class="text-[#556960] text-sm leading-relaxed">
+              No credit card required. Free tier includes all 3 sources parsing and citations.
+            </p>
+          </div>
+
+          <!-- Social Signup Buttons -->
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <!-- Google -->
+            <button type="button" class="flex items-center justify-center gap-2.5 py-2.5 px-3 rounded-2xl border border-[#dce4df] bg-white hover:bg-gray-50/80 text-xs font-semibold text-[#273830] shadow-2xs hover:shadow-xs transition-all duration-200">
+              <svg class="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Google</span>
+            </button>
+
+            <!-- GitHub -->
+            <button type="button" class="flex items-center justify-center gap-2.5 py-2.5 px-3 rounded-2xl border border-[#dce4df] bg-white hover:bg-gray-50/80 text-xs font-semibold text-[#273830] shadow-2xs hover:shadow-xs transition-all duration-200">
+              <svg class="w-4 h-4 fill-current text-[#1e342b]" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span>GitHub</span>
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="relative flex items-center justify-center mb-6">
+            <div class="border-t border-[#e2e9e4] w-full"></div>
+            <span class="bg-white px-3 text-[11px] font-semibold text-[#8ca095] uppercase tracking-wider">
+              Or with email
+            </span>
+          </div>
+
+          <!-- Form Element -->
+          <form id="signupForm" class="space-y-4" onsubmit="event.preventDefault(); alert('Account created successfully! Welcome to Knowledge Studio.'); window.location.href='index.html';">
+            
+            <!-- Full Name Field -->
+            <div>
+              <label for="name" class="block text-xs font-semibold text-[#203a30] mb-1.5">
+                Full Name
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="name" 
+                  required 
+                  placeholder="e.g. Yahya Khan"
+                  class="w-full bg-[#fbfdfc] border border-[#d6e0da] focus:border-[#244238] focus:ring-2 focus:ring-[#244238]/15 rounded-xl px-4 py-3 text-sm text-[#18342a] placeholder-[#8d9f95] transition-all outline-none"
+                />
+                <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-gray-400">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="block text-xs font-semibold text-[#203a30] mb-1.5">
+                Email Address
+              </label>
+              <div class="relative">
+                <input 
+                  type="email" 
+                  id="email" 
+                  required 
+                  placeholder="name@university.edu"
+                  class="w-full bg-[#fbfdfc] border border-[#d6e0da] focus:border-[#244238] focus:ring-2 focus:ring-[#244238]/15 rounded-xl px-4 py-3 text-sm text-[#18342a] placeholder-[#8d9f95] transition-all outline-none"
+                />
+                <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-gray-400">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password Field with Strength Indicator -->
+            <div>
+              <label for="password" class="block text-xs font-semibold text-[#203a30] mb-1.5">
+                Create Password
+              </label>
+              <div class="relative">
+                <input 
+                  type="password" 
+                  id="password" 
+                  required 
+                  minlength="8"
+                  placeholder="At least 8 characters"
+                  oninput="updateStrength(this.value)"
+                  class="w-full bg-[#fbfdfc] border border-[#d6e0da] focus:border-[#244238] focus:ring-2 focus:ring-[#244238]/15 rounded-xl px-4 py-3 text-sm text-[#18342a] placeholder-[#8d9f95] transition-all outline-none"
+                />
+                <button 
+                  type="button" 
+                  class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                  onclick="const input = document.getElementById('password'); input.type = input.type === 'password' ? 'text' : 'password';"
+                >
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="3" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Password Strength Bars -->
+              <div class="mt-2 flex items-center gap-1.5">
+                <div id="bar1" class="h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300"></div>
+                <div id="bar2" class="h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300"></div>
+                <div id="bar3" class="h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300"></div>
+                <span id="strengthText" class="text-[10px] font-semibold text-gray-400 ml-1">Strength</span>
+              </div>
+            </div>
+
+            <!-- Agreement Checkbox -->
+            <div class="pt-1">
+              <label class="flex items-start gap-2.5 cursor-pointer select-none">
+                <input 
+                  type="checkbox" 
+                  required
+                  class="w-4 h-4 text-[#244238] border-gray-300 rounded focus:ring-[#244238] accent-[#244238] mt-0.5" 
+                />
+                <span class="text-xs text-[#52685e] leading-snug">
+                  I agree to the <a href="#" class="font-semibold text-[#1d372e] underline">Terms of Service</a> and <a href="#" class="font-semibold text-[#1d372e] underline">Privacy Policy</a>.
+                </span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="w-full bg-[#234238] hover:bg-[#173027] text-white py-3.5 px-6 rounded-full font-semibold text-sm shadow-soft hover:shadow-float transition-all duration-300 flex items-center justify-center gap-2 group mt-2"
+            >
+              <span>Create Free Account</span>
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Card Switcher Footer -->
+          <div class="mt-8 pt-5 border-t border-[#eaf0ec] text-center">
+            <p class="text-xs text-[#596d63]">
+              Already have an account? 
+              <a href="login.html" class="font-bold text-[#1e3d31] hover:underline ml-1">
+                Log in here
+              </a>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== SIMPLE FOOTER ==================== -->
+  <footer class="w-full py-6 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-[#6b8277] border-t border-[#e7eee9] gap-3">
+    <div>
+      © 2025 Knowledge Studio · RAG AI Project by COMSATS Students
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="index.html#home" class="hover:text-[#18342a] transition-colors">Home</a>
+      <a href="index.html#features" class="hover:text-[#18342a] transition-colors">Features</a>
+      <a href="index.html#about" class="hover:text-[#18342a] transition-colors">About</a>
+      <a href="#" class="hover:text-[#18342a] transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-[#18342a] transition-colors">Terms of Service</a>
+    </div>
+  </footer>
+
+  <!-- Simple Password Strength Script -->
+  <script>
+    function updateStrength(val) {
+      const b1 = document.getElementById('bar1');
+      const b2 = document.getElementById('bar2');
+      const b3 = document.getElementById('bar3');
+      const txt = document.getElementById('strengthText');
+
+      if (!val || val.length === 0) {
+        b1.className = 'h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300';
+        b2.className = 'h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300';
+        b3.className = 'h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300';
+        txt.textContent = 'Strength';
+        txt.className = 'text-[10px] font-semibold text-gray-400 ml-1';
+        return;
+      }
+
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val) || val.length >= 12) score++;
+
+      if (score === 1) {
+        b1.className = 'h-1 flex-1 rounded-full bg-red-400 transition-colors duration-300';
+        b2.className = 'h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300';
+        b3.className = 'h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300';
+        txt.textContent = 'Weak';
+        txt.className = 'text-[10px] font-semibold text-red-500 ml-1';
+      } else if (score === 2) {
+        b1.className = 'h-1 flex-1 rounded-full bg-amber-400 transition-colors duration-300';
+        b2.className = 'h-1 flex-1 rounded-full bg-amber-400 transition-colors duration-300';
+        b3.className = 'h-1 flex-1 rounded-full bg-gray-200 transition-colors duration-300';
+        txt.textContent = 'Good';
+        txt.className = 'text-[10px] font-semibold text-amber-600 ml-1';
+      } else {
+        b1.className = 'h-1 flex-1 rounded-full bg-emerald-500 transition-colors duration-300';
+        b2.className = 'h-1 flex-1 rounded-full bg-emerald-500 transition-colors duration-300';
+        b3.className = 'h-1 flex-1 rounded-full bg-emerald-500 transition-colors duration-300';
+        txt.textContent = 'Strong';
+        txt.className = 'text-[10px] font-semibold text-emerald-600 ml-1';
+      }
+    }
+  </script>
+
+</body>
+</html>
