@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Knowledge Studio AI | COMSATS University Islamabad</title>
+  
+  <!-- Fonts & Frameworks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Newsreader', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#f4f8f5', 100: '#e5efe9', 200: '#cce1d5', 500: '#4e886d', 600: '#3c6e57', 700: '#315746', 800: '#284638', 900: '#1b342a' },
+            tealAccent: '#2b6579', canvas: '#faf8f2', cardBg: '#f6f4ec'
+          },
+          boxShadow: {
+            'soft': '0 8px 24px -4px rgba(27, 54, 43, 0.05)',
+            'float': '0 16px 36px -8px rgba(22, 45, 36, 0.09)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #faf8f2; color: #273931; font-family: 'Plus Jakarta Sans', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    ::selection { background: #cce1d5; color: #162d23; }
+    
+    /* Watercolor Splash Graphics */
+    .watercolor-splash-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+    .watercolor-splash-svg {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.1);
+      z-index: 1; pointer-events: none; transition: transform 0.4s ease, filter 0.4s ease;
+      filter: drop-shadow(0 6px 14px rgba(43, 101, 121, 0.18));
+    }
+    .feature-card:hover .watercolor-splash-svg {
+      transform: translate(-50%, -50%) scale(1.22) rotate(3deg);
+      filter: drop-shadow(0 10px 20px rgba(43, 101, 121, 0.28));
+    }
+
+    /* Bootstrap Modal Theme Overrides */
+    .modal-content { background-color: #faf8f2 !important; border: 1px solid #e8e6dc !important; border-radius: 1.5rem !important; }
+    .modal-backdrop.show { opacity: 0.55 !important; background-color: #13241d !important; }
+    .modal-header { border-bottom: 1px solid #e8ece7 !important; background: #f5f3ec !important; padding: 1.5rem 2rem !important; }
+    .modal-footer { border-top: 1px solid #e8ece7 !important; background-color: #f7f6f0 !important; }
+  </style>
+</head>
+<body class="bg-[#faf8f2] text-[#273931] min-h-screen flex flex-col justify-between">
+
+  <!-- Navbar -->
+  <header class="w-full pt-7 pb-4 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto flex items-center justify-between relative z-50">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 flex items-center justify-center text-[#1c382e] transition-transform group-hover:scale-105">
+        <svg class="w-9 h-9" viewBox="0 0 36 36" fill="none" stroke="#1d382e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 4C14 4 11 6.5 9.5 9.5C7.5 10 5.5 12 5.5 14.8C5.5 16.5 6.3 18 7.5 19C6.8 20.2 6.5 21.6 6.5 23C6.5 26.2 9.2 29 12.5 29C13.3 29 14.1 28.8 14.8 28.4C15.8 30 17.5 31 19.5 31C22.2 31 24.5 29.2 25.1 26.8C25.7 27 26.3 27.1 27 27.1C30 27.1 32.5 24.7 32.5 21.7C32.5 20.3 32 19 31.1 18.1C31.9 17 32.5 15.5 32.5 13.8C32.5 10.7 30 8.3 27 8.3C26.4 8.3 25.8 8.4 25.2 8.6C23.8 5.8 21.2 4 18 4Z" stroke-width="1.8"/>
+          <path d="M18 6V29M14 11.5c1.5 1.5 2.8 3.3 4 4.5M22 11.5c-1.5 1.5-2.8 3.3-4 4.5M11 17.5c2 1.3 5 2.3 7 4M25 17.5c-2 1.3-5 2.3-7 4M13.5 24.5c1.7.7 3.5 1.3 4.5 2.7M22.5 24.5c-1.7.7-3.5 1.3-4.5 2.7"/>
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-serif text-[22px] font-semibold text-[#18342a] tracking-tight leading-none">Knowledge Studio</span>
+        <span class="text-[8.5px] tracking-[0.3em] font-semibold text-[#546e62] uppercase mt-1">RAG · SEARCH · AI</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
+      <a href="index.html" class="hover:text-[#18342a] transition-colors">Home</a>
+      <a href="index.html#features" class="hover:text-[#18342a] transition-colors">Features</a>
+      <a href="index.html#how-it-works" class="hover:text-[#18342a] transition-colors">How It Works</a>
+      <a href="about.html" class="text-[#19352b] font-semibold relative pb-1">
+        About Us
+        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full"></span>
+      </a>
+      <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
+      <a href="index.html#feedback" class="hover:text-[#18342a] transition-colors">Feedback</a>
+    </nav>
+
+    <div class="flex items-center gap-7">
+      <a href="login.html" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820]">Log In</a>
+      <a href="signup.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">Get Started Free</a>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="pt-14 pb-8 px-6 sm:px-10 lg:px-16 max-w-4xl mx-auto text-center flex flex-col items-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e5efe9] border border-[#cce1d5] text-[11px] font-bold uppercase tracking-[0.22em] text-[#315746] mb-4">
+      <span class="w-2 h-2 rounded-full bg-[#4e886d] animate-pulse"></span>
+      COMSATS University Islamabad · Department of Computer Science
+    </div>
+    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[54px] text-[#18342a] leading-[1.14] tracking-tight">
+      Find answers you can trust.<br /><span class="text-[#2b6579]">Grounded. Modular. Quiet.</span>
+    </h1>
+    <p class="text-[#556960] text-[16px] leading-relaxed max-w-2xl mt-4 mx-auto">
+      Built by students in the Department of Computer Science at COMSATS University Islamabad to eliminate generative AI hallucinations and make multi-source data effortlessly searchable.
+    </p>
+  </section>
+
+  <!-- Split Layout: Mission Narrative & Pillars Card -->
+  <section class="py-12 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      
+      <!-- Left Column: Mission & Context -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="border-l-4 border-[#2b6579] pl-6 py-1">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#4c7062] mb-2">OUR CORE MISSION</p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-[#18342a] leading-snug">
+            To eliminate AI hallucinations by anchoring generative intelligence in cited, verifiable human documents.
+          </h2>
+        </div>
+
+        <div class="text-[#556960] text-[15.5px] leading-relaxed space-y-4">
+          <p>
+            In an era of conversational chatbots that speak with unwarranted confidence yet frequently fabricate facts, <strong class="text-[#18342a] font-semibold">Knowledge Studio</strong> was conceived with a strict standard: <em class="text-[#18342a]">truth must be mathematically verifiable</em>. Every paragraph produced is grounded in explicit chunk passages from your trusted files.
+          </p>
+          <p>
+            Developed within the <strong class="text-[#18342a] font-semibold">Department of Computer Science at COMSATS University Islamabad</strong>, Knowledge Studio originated as an advanced capstone inquiry into Retrieval-Augmented Generation (RAG). Confronted with the constant student dilemma of parsing hundreds of textbook chapters, dynamic web pages, and recorded seminar videos, our team engineered a unified RAG platform that bridges disparate data silos into a singular conversational interface.
+          </p>
+          <p>
+            From dense vector chunking and cosine similarity thresholds to our signature cream-and-quiet visual ergonomics, the system reflects both academic rigor and thoughtful software craft.
+          </p>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <button type="button" class="bg-[#244238] hover:bg-[#183229] text-white text-[15px] font-medium px-6 py-3.5 rounded-full inline-flex items-center gap-2.5 shadow-soft hover:shadow-float transition-all" data-bs-toggle="modal" data-bs-target="#comsatsTeamModal">
+            <svg class="w-4 h-4 text-[#a3c7b3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Meet COMSATS Team &amp; Specs</span>
+          </button>
+          <a href="#feature-grid" class="border border-[#cbd8d1] text-[#1f3d32] hover:bg-[#eaf2ed] text-[15px] font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2 transition-all">
+            <span>Explore Design Pillars</span>
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+        </div>
+
+        <div class="pt-2 flex items-center gap-2 text-xs font-semibold text-[#4c7062]">
+          <span class="inline-block w-2 h-2 rounded-full bg-[#4e886d]"></span>
+          <span>Department of Computer Science · COMSATS University Islamabad</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Key Design Pillars Card -->
+      <div class="lg:col-span-5">
+        <div class="bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] shadow-soft relative overflow-hidden">
+          <div class="flex items-center justify-between pb-5 mb-5 border-b border-[#e8e6dc]">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#4c7062] block mb-1">FOUNDATIONAL PRINCIPLES</span>
+              <h3 class="font-serif text-2xl text-[#18342a]">Key Design Pillars</h3>
+            </div>
+            <div class="w-10 h-10 rounded-2xl bg-[#dbe7df] text-[#2d5c47] flex items-center justify-center shadow-2xs">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+
+          <div class="space-y-5">
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#284638] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#cce1d5]">01</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">Verifiable Grounding Only</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Strict rejection of generative fabrications. Every insight corresponds to an indexed chunk with cosine similarity metrics.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#d6e7e4] text-[#20676a] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c2e0ef]">02</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">Cream &amp; Quiet Aesthetic</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Warm cream (#faf8f2 / #fdfbf7) canvas and watercolor accents that mitigate screen fatigue and foster deep focus.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#d7eaed] text-[#2b6579] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c4e0e4]">03</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">Modular Cross-Modal Ingestion</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Harmonious unification of multi-column PDFs, headless web crawlers, and timestamped YouTube transcriptions.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#284638] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#cce1d5]">04</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">COMSATS Academic Rigor</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Engineered and benchmarked under university research standards, ensuring open, ethical, and reproducible practices.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-[#e8e6dc] grid grid-cols-3 gap-2.5 text-center">
+            <div class="p-2.5 rounded-xl bg-white border border-[#e8e6dc]">
+              <span class="block font-serif text-lg font-bold text-[#18342a]">100%</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#546e62] font-semibold">Cited Sources</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white border border-[#e8e6dc]">
+              <span class="block font-serif text-lg font-bold text-[#18342a]">3-in-1</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#546e62] font-semibold">Modalities</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white border border-[#e8e6dc]">
+              <span class="block font-serif text-lg font-bold text-[#18342a]">0%</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#546e62] font-semibold">Hallucination</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Three-Card Feature Grid -->
+  <section id="feature-grid" class="py-20 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-t border-[#e8ece7]">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <p class="text-xs tracking-[0.22em] font-bold text-[#4c7062] uppercase mb-2">FOUNDATION &amp; ARCHITECTURE</p>
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#18342a] leading-tight tracking-tight mb-3">Engineered for Truth &amp; Clarity.</h2>
+      <p class="text-[#556960] text-[15.5px] leading-relaxed mx-auto">Three core tenets define the Knowledge Studio engine, ensuring every retrieved answer is factual, multi-source, and cognitively calming.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      
+      <!-- Card 1: Zero-Hallucination Grounding -->
+      <div class="feature-card bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between group min-h-[380px]">
+        <div>
+          <div class="mb-6 flex items-center justify-start">
+            <div class="watercolor-splash-wrap w-16 h-16">
+              <svg class="watercolor-splash-svg w-24 h-24" viewBox="0 0 100 100" fill="none">
+                <radialGradient id="sp1" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#2b6579" stop-opacity="0.55"/><stop offset="50%" stop-color="#4e886d" stop-opacity="0.35"/><stop offset="100%" stop-color="#cce1d5" stop-opacity="0"/></radialGradient>
+                <path d="M48 10C64 9 78 18 86 32C94 46 91 62 81 74C71 86 53 92 38 88C23 84 10 72 8 56C6 40 18 24 31 16C36 12 42 10 48 10Z" fill="url(#sp1)"/>
+                <circle cx="82" cy="22" r="4.5" fill="#2b6579" fill-opacity="0.4"/>
+              </svg>
+              <div class="relative z-10 w-12 h-12 rounded-full bg-[#dbe7df] text-[#2d5c47] flex items-center justify-center shadow-sm">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-[#18342a] mb-2.5">Zero-Hallucination Grounding</h3>
+          <p class="text-[14.5px] leading-relaxed text-[#5a6e64] mb-6">Generative language models are bounded by deterministic cosine similarity thresholds (&ge; 0.78), citing explicit chunk passages directly from your files.</p>
+        </div>
+        <div class="pt-4 border-t border-[#e8e6dc] space-y-2 text-xs font-semibold text-[#315746]">
+          <div class="flex items-center gap-2">✓ Strict cosine cutoffs (&ge; 0.78)</div>
+          <div class="flex items-center gap-2">✓ Inline clickable chunk citations</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Modular Data Ingestion -->
+      <div class="feature-card bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between group min-h-[380px]">
+        <div>
+          <div class="mb-6 flex items-center justify-start">
+            <div class="watercolor-splash-wrap w-16 h-16">
+              <svg class="watercolor-splash-svg w-24 h-24" viewBox="0 0 100 100" fill="none">
+                <radialGradient id="sp2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2b6579" stop-opacity="0.6"/><stop offset="45%" stop-color="#20676a" stop-opacity="0.35"/><stop offset="100%" stop-color="#cce1d5" stop-opacity="0"/></radialGradient>
+                <path d="M42 8C60 6 75 14 84 27C93 40 95 59 86 73C77 87 60 95 44 91C28 87 14 77 9 61C4 45 9 28 22 17C28 12 35 9 42 8Z" fill="url(#sp2)"/>
+                <circle cx="16" cy="30" r="4.2" fill="#2b6579" fill-opacity="0.4"/>
+              </svg>
+              <div class="relative z-10 w-12 h-12 rounded-full bg-[#d6e7e4] text-[#20676a] flex items-center justify-center shadow-sm">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-[#18342a] mb-2.5">Modular Data Ingestion (PDF, Web, YT)</h3>
+          <p class="text-[14.5px] leading-relaxed text-[#5a6e64] mb-6">A unified tripartite data adapter that ingests diverse mediums: high-precision PDF parsing, DOM web crawling, and timestamped YouTube transcripts.</p>
+        </div>
+        <div class="pt-4 border-t border-[#e8e6dc] space-y-2 text-xs font-semibold text-[#315746]">
+          <div class="flex items-center gap-2">✓ Tables, figures &amp; structured PDFs</div>
+          <div class="flex items-center gap-2">✓ Millisecond video timestamp alignment</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Cream & Quiet Aesthetic -->
+      <div class="feature-card bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between group min-h-[380px]">
+        <div>
+          <div class="mb-6 flex items-center justify-start">
+            <div class="watercolor-splash-wrap w-16 h-16">
+              <svg class="watercolor-splash-svg w-24 h-24" viewBox="0 0 100 100" fill="none">
+                <radialGradient id="sp3" cx="48%" cy="48%" r="52%"><stop offset="0%" stop-color="#2b6579" stop-opacity="0.55"/><stop offset="50%" stop-color="#73a78d" stop-opacity="0.35"/><stop offset="100%" stop-color="#d7eaed" stop-opacity="0"/></radialGradient>
+                <path d="M50 10C68 10 82 20 88 36C94 52 88 70 76 81C64 92 46 92 31 85C16 78 8 62 9 46C10 30 22 18 36 12C41 10 45 10 50 10Z" fill="url(#sp3)"/>
+                <circle cx="86" cy="28" r="4.0" fill="#2b6579" fill-opacity="0.4"/>
+              </svg>
+              <div class="relative z-10 w-12 h-12 rounded-full bg-[#d7eaed] text-[#2c6579] flex items-center justify-center shadow-sm">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-[#18342a] mb-2.5">Cream &amp; Quiet Aesthetic</h3>
+          <p class="text-[14.5px] leading-relaxed text-[#5a6e64] mb-6">Designed to mitigate screen fatigue during prolonged academic research. Soft cream canvas (#faf8f2 / #fdfbf7) paired with soothing watercolor accents.</p>
+        </div>
+        <div class="pt-4 border-t border-[#e8e6dc] space-y-2 text-xs font-semibold text-[#315746]">
+          <div class="flex items-center gap-2">✓ Ergonomic #faf8f2 / #fdfbf7 palette</div>
+          <div class="flex items-center gap-2">✓ Organic watercolor blue visual cues</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMSATS Campus & Story -->
+  <section class="py-20 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-t border-[#e8ece7]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-4 flex justify-center lg:justify-start">
+        <div class="w-full max-w-[340px] aspect-[4/3] rounded-t-[9999px] rounded-b-3xl overflow-hidden shadow-soft border border-[#e2e8e3]">
+          <img src="assets/comsats-students.jpg" alt="COMSATS Student Workspace" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <p class="text-xs tracking-[0.22em] font-bold text-[#4c7062] uppercase mb-2">ABOUT THE PROJECT</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-[#18342a] leading-tight tracking-tight mb-4">Built by COMSATS Students</h2>
+        <p class="text-[#556960] text-[15px] leading-relaxed mb-6">
+          Knowledge Studio is a project developed by students in the Department of Computer Science at COMSATS University Islamabad to make knowledge accessible, searchable and verifiable without generative hallucinations.
+        </p>
+        <button type="button" class="border border-[#234238] text-[#234238] hover:bg-[#234238] hover:text-white text-sm font-semibold px-6 py-2.5 rounded-full inline-flex items-center gap-2 transition-all" data-bs-toggle="modal" data-bs-target="#comsatsTeamModal">
+          <span>View Team Blueprint &amp; Specs</span>
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div class="bg-[#d7eaed] rounded-3xl p-7 border border-[#c4e0e4] flex flex-col justify-between shadow-soft">
+          <div class="text-[#2c6579] font-serif text-5xl leading-none select-none mb-3">“</div>
+          <p class="font-serif italic text-[#183a38] text-[16.5px] leading-relaxed mb-6">"Knowledge isn't just information, it's a tool for a better future."</p>
+          <div class="text-[11px] font-semibold text-[#4e7477] uppercase tracking-wider">— Department of Computer Science, COMSATS University Islamabad</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-16 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+    <div class="bg-[#18332a] text-white rounded-3xl p-10 sm:p-14 text-center relative overflow-hidden shadow-float">
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <span class="text-xs uppercase tracking-[0.26em] text-[#a3c7b3] font-bold block mb-3">YOUR KNOWLEDGE. AMPLIFIED.</span>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight mb-5">Find answers in your documents, web and videos.</h2>
+        <p class="text-[#b3cec2] text-[15.5px] leading-relaxed mb-8">Upload your PDFs, crawl technical documentation, or import YouTube seminars. Get accurate, cited answers in seconds.</p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a href="signup.html" class="bg-white hover:bg-gray-100 text-[#18332a] text-[15px] font-semibold px-8 py-3.5 rounded-full shadow-soft transition-all">Get Started Free</a>
+          <a href="index.html#demo" class="bg-white/10 hover:bg-white/20 text-white text-[15px] font-semibold px-7 py-3.5 rounded-full border border-white/20 transition-all">Return to Live Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap Modal: COMSATS Team & Specs -->
+  <div class="modal fade" id="comsatsTeamModal" tabindex="-1" aria-labelledby="comsatsTeamModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#4c7062] block mb-1">Department of Computer Science</span>
+            <h5 class="font-serif text-2xl text-[#18342a] mb-0" id="comsatsTeamModalLabel">COMSATS University Islamabad — Project Blueprint</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-6 sm:p-8 space-y-6">
+          <div class="bg-[#e5efe9] rounded-2xl p-4 sm:p-5 border border-[#cce1d5] flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-[#244238] text-white flex items-center justify-center font-serif font-bold text-lg">CI</div>
+            <div>
+              <h6 class="font-semibold text-sm text-[#18342a] mb-0.5">COMSATS University Islamabad</h6>
+              <p class="text-xs text-[#556960] mb-0">Department of Computer Science · COMSATS University Islamabad · Spring 2025</p>
+            </div>
+          </div>
+
+          <div>
+            <h6 class="text-xs font-bold uppercase tracking-wider text-[#315746] mb-3">Student Development Contributors</h6>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-white p-4 rounded-xl border border-[#e8e6dc]">
+                <div class="w-8 h-8 rounded-full bg-[#dbe7df] text-[#284638] font-bold text-xs flex items-center justify-center mb-2">DS</div>
+                <span class="font-semibold text-sm text-[#18342a] block">Lead RAG Architect</span>
+                <span class="text-xs text-[#6e8076] block mt-0.5">Vector Embeddings &amp; Chunking</span>
+              </div>
+              <div class="bg-white p-4 rounded-xl border border-[#e8e6dc]">
+                <div class="w-8 h-8 rounded-full bg-[#d6e7e4] text-[#20676a] font-bold text-xs flex items-center justify-center mb-2">UI</div>
+                <span class="font-semibold text-sm text-[#18342a] block">Frontend &amp; UX Engineer</span>
+                <span class="text-xs text-[#6e8076] block mt-0.5">Tailwind, Bootstrap &amp; Aesthetics</span>
+              </div>
+              <div class="bg-white p-4 rounded-xl border border-[#e8e6dc]">
+                <div class="w-8 h-8 rounded-full bg-[#d7eaed] text-[#2b6579] font-bold text-xs flex items-center justify-center mb-2">IN</div>
+                <span class="font-semibold text-sm text-[#18342a] block">Data Ingestion Specialist</span>
+                <span class="text-xs text-[#6e8076] block mt-0.5">PDF, Web Crawler &amp; YouTube APIs</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h6 class="text-xs font-bold uppercase tracking-wider text-[#315746] mb-3">Implemented Technology Stack</h6>
+            <div class="flex flex-wrap gap-2 text-xs font-semibold text-[#18342a]">
+              <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Tailwind CSS</span>
+              <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Bootstrap 5 Modal</span>
+              <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">HTML5 Semantic Architecture</span>
+              <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Newsreader &amp; Plus Jakarta Sans</span>
+              <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Vector Embeddings (FAISS / Chroma)</span>
+              <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">PyPDF &amp; Headless Crawlers</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer flex items-center justify-between">
+          <span class="text-xs text-[#6e8076]">Knowledge Studio · COMSATS University Islamabad</span>
+          <button type="button" class="bg-[#244238] hover:bg-[#183229] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors" data-bs-dismiss="modal">Close Blueprint</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative bg-[#18332a] text-white pt-16 pb-12">
+    <div class="absolute -top-1 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none">
+      <svg class="block w-full h-8 sm:h-12" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0 C300,55 900,55 1200,0 L1200,120 L0,120 Z" fill="#18332a"/></svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-[#25463b]">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="w-10 h-10 flex items-center justify-center text-white">
+            <svg class="w-9 h-9" viewBox="0 0 36 36" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 4C14 4 11 6.5 9.5 9.5C7.5 10 5.5 12 5.5 14.8C5.5 16.5 6.3 18 7.5 19C6.8 20.2 6.5 21.6 6.5 23C6.5 26.2 9.2 29 12.5 29C13.3 29 14.1 28.8 14.8 28.4C15.8 30 17.5 31 19.5 31C22.2 31 24.5 29.2 25.1 26.8C25.7 27 26.3 27.1 27 27.1C30 27.1 32.5 24.7 32.5 21.7C32.5 20.3 32 19 31.1 18.1C31.9 17 32.5 15.5 32.5 13.8C32.5 10.7 30 8.3 27 8.3C26.4 8.3 25.8 8.4 25.2 8.6C23.8 5.8 21.2 4 18 4Z" stroke-width="1.8"/>
+              <path d="M18 6V29M14 11.5c1.5 1.5 2.8 3.3 4 4.5M22 11.5c-1.5 1.5-2.8 3.3-4 4.5M11 17.5c2 1.3 5 2.3 7 4M25 17.5c-2 1.3-5 2.3-7 4"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif text-xl font-semibold text-white tracking-tight leading-tight">Knowledge Studio</span>
+            <span class="text-[8.5px] tracking-[0.3em] font-semibold text-[#8ca89a] uppercase mt-1">RAG · SEARCH · AI</span>
+          </div>
+        </a>
+
+        <nav class="flex flex-wrap items-center justify-center gap-7 text-[14.5px] font-medium text-[#b3cec2]">
+          <a href="index.html" class="hover:text-white transition-colors">Home</a>
+          <a href="index.html#features" class="hover:text-white transition-colors">Features</a>
+          <a href="index.html#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="about.html" class="text-white font-semibold">About Us</a>
+          <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
+          <a href="index.html#feedback" class="hover:text-white transition-colors">Feedback</a>
+        </nav>
+
+        <div class="flex items-center gap-5 text-[#b3cec2]">
+          <a href="https://github.com" target="_blank" class="hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+          <a href="https://linkedin.com" target="_blank" class="hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="https://youtube.com" target="_blank" class="hover:text-white"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.582 6.186a2.506 2.506 0 0 0-1.768-1.782C18.254 4 12 4 12 4s-6.254 0-7.814.404a2.506 2.506 0 0 0-1.768 1.782A26.07 26.07 0 0 0 2 12a26.07 26.07 0 0 0 .418 5.814 2.506 2.506 0 0 0 1.768 1.782C5.746 20 12 20 12 20s6.254 0 7.814-.404a2.506 2.506 0 0 0 1.768-1.782A26.07 26.07 0 0 0 22 12a26.07 26.07 0 0 0-.418-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#7d998c] gap-4">
+        <div>© 2025 Knowledge Studio. Developed in the Department of Computer Science, COMSATS University Islamabad.</div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

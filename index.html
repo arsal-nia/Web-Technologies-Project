@@ -106,14 +106,15 @@
     </a>
 
     <!-- Navigation Links -->
-    <nav class="hidden md:flex items-center gap-10 text-[14.5px] font-medium text-[#4f645a]">
+    <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
       <a href="#home" class="text-[#19352b] font-semibold relative pb-1">
         Home
         <span class="absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full"></span>
       </a>
       <a href="#features" class="hover:text-[#18342a] transition-colors">Features</a>
       <a href="#how-it-works" class="hover:text-[#18342a] transition-colors">How It Works</a>
-      <a href="#about" class="hover:text-[#18342a] transition-colors">About</a>
+      <a href="about.html" class="hover:text-[#18342a] transition-colors">About Us</a>
+      <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
       <a href="#feedback" class="hover:text-[#18342a] transition-colors">Feedback</a>
     </nav>
 
@@ -660,7 +661,7 @@
                       <svg class="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                       <span>Saved Chats</span>
                     </a>
-                    <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-200/50 transition-colors">
+                    <a href="knowledge-base.html" class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-200/50 transition-colors">
                       <svg class="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
                       <span>Knowledge Base</span>
                     </a>
@@ -869,48 +870,84 @@
   </section>
 
   <!-- ==================== SECTION 5: ABOUT THE PROJECT (BUILT BY COMSATS STUDENTS) ==================== -->
-  <section id="about" class="py-20 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+  <section id="about" class="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-t border-[#e8ece7]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
       
-      <!-- Left: Workspace Photo in Arch Mask -->
-      <div class="lg:col-span-4 flex justify-center lg:justify-start">
-        <div class="relative w-full max-w-[340px] aspect-[4/3] rounded-t-[9999px] rounded-b-3xl overflow-hidden shadow-soft border border-[#e2e8e3]">
-          <img src="assets/comsats-students.jpg" alt="COMSATS Student Workspace" class="w-full h-full object-cover" />
+      <!-- Left: Workspace Photo in Arch Mask with Decorative Watercolor Aura -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-start">
+        <div class="relative w-full max-w-[380px]">
+          <!-- Soft watercolor aura backdrop -->
+          <div class="absolute -inset-3 rounded-[40px] bg-gradient-to-tr from-[#cce1d5]/40 via-[#d7eaed]/50 to-transparent blur-xl pointer-events-none"></div>
+          
+          <div class="relative aspect-[4/3] rounded-t-[9999px] rounded-b-3xl overflow-hidden shadow-float border border-[#e2e8e3] bg-white">
+            <img src="assets/comsats-students.jpg" alt="COMSATS Student Workspace" class="w-full h-full object-cover" />
+            <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-2xl p-3 border border-white/80 shadow-2xs flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#3c6e57]"></span>
+                <span class="text-[11px] font-bold text-[#1b342a]">COMSATS University Islamabad</span>
+              </div>
+              <span class="text-[10px] font-semibold text-[#546e62] uppercase tracking-wider">Student Capstone</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Center: About Details -->
-      <div class="lg:col-span-5">
-        <p class="text-xs tracking-[0.22em] font-bold text-[#4c7062] uppercase mb-2">
-          ABOUT THE PROJECT
-        </p>
-        <h2 class="font-serif text-3xl sm:text-4xl text-[#18342a] leading-tight tracking-tight mb-4">
-          Built by COMSATS Students
-        </h2>
-        <p class="text-[#556960] text-[15px] leading-relaxed mb-6">
-          Knowledge Studio is a project developed by Data Science &amp; Web Technologies engineering students at COMSATS University. We built this platform to make knowledge more accessible, searchable and useful — using the power of modern AI.
-        </p>
-        
-        <a href="#about-us" class="border border-[#234238] text-[#234238] hover:bg-[#234238] hover:text-white text-sm font-semibold px-6 py-2.5 rounded-full inline-flex items-center gap-2 transition-all duration-300 group">
-          <span>Learn More About Us</span>
-          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </a>
-      </div>
+      <!-- Center & Right: About Us Narrative & Direct Link to New Page -->
+      <div class="lg:col-span-7">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#edf5f9] border border-[#d6e7f0] text-xs font-bold text-[#266275] uppercase tracking-wider mb-3">
+          <span>About Knowledge Studio</span>
+          <span class="w-1 h-1 rounded-full bg-[#266275]"></span>
+          <span>COMSATS University</span>
+        </div>
 
-      <!-- Right: Quote Card in Soft Pastel Teal/Cyan Container -->
-      <div class="lg:col-span-3">
-        <div class="bg-[#d7eaed] rounded-3xl p-7 border border-[#c4e0e4] flex flex-col justify-between shadow-soft">
-          <div class="text-[#2c6579] font-serif text-5xl leading-none select-none mb-3">
-            “
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#18342a] leading-tight tracking-tight mb-4">
+          Built by COMSATS Students.<br />
+          <span class="text-[#2b6579]">Grounded in Verifiable Truth.</span>
+        </h2>
+        
+        <p class="text-[#556960] text-[15.5px] leading-relaxed mb-6 max-w-2xl">
+          Knowledge Studio was engineered by computer science and data engineering students at COMSATS University Islamabad. Our goal is simple yet resolute: eliminate AI hallucinations by grounding every answer in authenticated PDFs, web crawls, and YouTube video transcripts with direct citations.
+        </p>
+
+        <!-- 3 Design Pillars Preview Chips -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+          <div class="p-3 rounded-2xl bg-[#f5f3ec] border border-[#e8e6dc] flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-[#dbe7df] text-[#2d5c47] flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="text-xs font-bold text-[#18342a] leading-tight">Zero-Hallucination Grounding</span>
           </div>
-          <p class="font-serif italic text-[#183a38] text-[16.5px] leading-relaxed mb-6">
-            "Knowledge isn't just information, it's a tool for a better future."
-          </p>
-          <div class="text-[11px] font-semibold text-[#4e7477] uppercase tracking-wider">
-            — COMSATS Engineering Team
+
+          <div class="p-3 rounded-2xl bg-[#f5f3ec] border border-[#e8e6dc] flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-[#d6e7e4] text-[#20676a] flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <span class="text-xs font-bold text-[#18342a] leading-tight">Modular Data Ingestion</span>
           </div>
+
+          <div class="p-3 rounded-2xl bg-[#f5f3ec] border border-[#e8e6dc] flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-[#dbe7df] text-[#2d5c47] flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+            </div>
+            <span class="text-xs font-bold text-[#18342a] leading-tight">Cream &amp; Quiet Aesthetic</span>
+          </div>
+        </div>
+
+        <!-- Action Row leading to about.html -->
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="about.html" class="bg-[#234238] hover:bg-[#173027] text-white text-[15px] font-medium px-7 py-3.5 rounded-full inline-flex items-center gap-2.5 shadow-soft hover:shadow-float transition-all duration-300 group">
+            <span>Visit Dedicated About Us Page</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+
+          <a href="about.html#feature-grid" class="inline-flex items-center gap-2 text-sm font-semibold text-[#204539] hover:text-[#112921] px-4 py-3 rounded-full hover:bg-white/60 transition-colors">
+            <span>Explore Design Pillars</span>
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+          </a>
         </div>
       </div>
 
@@ -952,7 +989,8 @@
           <a href="#home" class="hover:text-white transition-colors">Home</a>
           <a href="#features" class="hover:text-white transition-colors">Features</a>
           <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
-          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="about.html" class="hover:text-white transition-colors">About Us</a>
+          <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
           <a href="#feedback" class="hover:text-white transition-colors">Feedback</a>
         </nav>
 
