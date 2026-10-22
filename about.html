@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+  <script>
+    // Seamless routing to integrated About Us view inside master layout
+    window.location.replace('index.html#about');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us — Knowledge Studio AI | COMSATS University Islamabad</title>
@@ -71,7 +75,7 @@
       </div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
+    <nav id="mainNav" class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
       <a href="index.html" class="hover:text-[#18342a] transition-colors">Home</a>
       <a href="index.html#features" class="hover:text-[#18342a] transition-colors">Features</a>
       <a href="index.html#how-it-works" class="hover:text-[#18342a] transition-colors">How It Works</a>
@@ -79,11 +83,10 @@
         About Us
         <span class="absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full"></span>
       </a>
-      <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
       <a href="index.html#feedback" class="hover:text-[#18342a] transition-colors">Feedback</a>
     </nav>
 
-    <div class="flex items-center gap-7">
+    <div id="authActions" class="flex items-center gap-7">
       <a href="login.html" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820]">Log In</a>
       <a href="signup.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">Get Started Free</a>
     </div>
@@ -432,7 +435,6 @@
           <a href="index.html#features" class="hover:text-white transition-colors">Features</a>
           <a href="index.html#how-it-works" class="hover:text-white transition-colors">How It Works</a>
           <a href="about.html" class="text-white font-semibold">About Us</a>
-          <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
           <a href="index.html#feedback" class="hover:text-white transition-colors">Feedback</a>
         </nav>
 
@@ -454,5 +456,55 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function updateNavForAuth() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || sessionStorage.getItem('isLoggedIn') === 'true';
+      const mainNav = document.getElementById('mainNav');
+      const authActions = document.getElementById('authActions');
+      
+      if (isLoggedIn && mainNav && authActions) {
+        if (!document.getElementById('nav-kb')) {
+          const chatLink = document.createElement('a');
+          chatLink.id = 'nav-chat';
+          chatLink.href = 'chat.html';
+          chatLink.className = 'hover:text-[#18342a] transition-colors font-medium';
+          chatLink.textContent = 'Chatbot';
+
+          const kbLink = document.createElement('a');
+          kbLink.id = 'nav-kb';
+          kbLink.href = 'chat.html#knowledge-base';
+          kbLink.className = 'hover:text-[#18342a] transition-colors font-medium';
+          kbLink.textContent = 'Knowledge Base';
+
+          const feedbackLink = mainNav.querySelector('a[href="index.html#feedback"]');
+          if (feedbackLink) {
+            mainNav.insertBefore(chatLink, feedbackLink);
+            mainNav.insertBefore(kbLink, feedbackLink);
+          } else {
+            mainNav.appendChild(chatLink);
+            mainNav.appendChild(kbLink);
+          }
+        }
+
+        authActions.innerHTML = `
+          <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200">
+            Chatbot Studio
+          </a>
+          <button onclick="logout(event)" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820] transition-colors cursor-pointer">
+            Log Out
+          </button>
+        `;
+      }
+    }
+
+    function logout(e) {
+      if (e) e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', updateNavForAuth);
+  </script>
 </body>
 </html>

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+  <script>
+    // Seamless routing to integrated Feedback view inside master layout
+    window.location.replace('index.html#feedback');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Feedback &amp; Support — Knowledge Studio AI</title>
@@ -53,10 +57,9 @@
       </div>
     </a>
 
-    <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
+    <nav id="mainNav" class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
       <a href="index.html" class="hover:text-[#18342a] transition-colors">Home</a>
       <a href="chat.html" class="hover:text-[#18342a] transition-colors">RAG Chat Studio</a>
-      <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
       <a href="about.html" class="hover:text-[#18342a] transition-colors">About Us</a>
       <a href="feedback.html" class="text-[#19352b] font-semibold relative pb-1">
         Feedback
@@ -64,7 +67,7 @@
       </a>
     </nav>
 
-    <div class="flex items-center gap-7">
+    <div id="authActions" class="flex items-center gap-7">
       <a href="login.html" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820]">Log In</a>
       <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">Launch Studio</a>
     </div>
@@ -291,7 +294,6 @@
           <a href="index.html" class="hover:text-white transition-colors">Home</a>
           <a href="chat.html" class="hover:text-white transition-colors">RAG Chat Studio</a>
           <a href="about.html" class="hover:text-white transition-colors">About Us</a>
-          <a href="knowledge-base.html" class="hover:text-white transition-colors">Knowledge Base</a>
           <a href="feedback.html" class="text-white font-semibold">Feedback</a>
         </nav>
 
@@ -321,5 +323,47 @@
     </div>
   </footer>
 
+  <script>
+    function updateNavForAuth() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || sessionStorage.getItem('isLoggedIn') === 'true';
+      const mainNav = document.getElementById('mainNav');
+      const authActions = document.getElementById('authActions');
+      
+      if (isLoggedIn && mainNav && authActions) {
+        if (!document.getElementById('nav-kb')) {
+          const kbLink = document.createElement('a');
+          kbLink.id = 'nav-kb';
+          kbLink.href = 'chat.html#knowledge-base';
+          kbLink.className = 'hover:text-[#18342a] transition-colors font-medium';
+          kbLink.textContent = 'Knowledge Base';
+
+          const aboutLink = mainNav.querySelector('a[href="about.html"]');
+          if (aboutLink) {
+            mainNav.insertBefore(kbLink, aboutLink);
+          } else {
+            mainNav.appendChild(kbLink);
+          }
+        }
+
+        authActions.innerHTML = `
+          <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200">
+            Chatbot Studio
+          </a>
+          <button onclick="logout(event)" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820] transition-colors cursor-pointer">
+            Log Out
+          </button>
+        `;
+      }
+    }
+
+    function logout(e) {
+      if (e) e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', updateNavForAuth);
+  </script>
 </body>
 </html>

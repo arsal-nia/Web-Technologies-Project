@@ -232,7 +232,7 @@
           </div>
 
           <!-- Form Element -->
-          <form id="signupForm" class="space-y-4" onsubmit="event.preventDefault(); alert('Account created successfully! Welcome to Knowledge Studio.'); window.location.href='chat.html';">
+          <form id="signupForm" class="space-y-4" onsubmit="event.preventDefault(); localStorage.setItem('isLoggedIn', 'true'); sessionStorage.setItem('isLoggedIn', 'true'); alert('Account created successfully! Welcome to Knowledge Studio.'); window.location.href='chat.html';">
             
             <!-- Full Name Field -->
             <div>

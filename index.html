@@ -78,6 +78,19 @@
     .animate-float-delayed {
       animation: subtleFloat 5s ease-in-out 2.5s infinite;
     }
+
+    /* Watercolor Splash Graphics */
+    .watercolor-splash-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+    .watercolor-splash-svg {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.1);
+      z-index: 1; pointer-events: none; transition: transform 0.4s ease, filter 0.4s ease;
+      filter: drop-shadow(0 6px 14px rgba(43, 101, 121, 0.18));
+    }
+    .feature-card:hover .watercolor-splash-svg {
+      transform: translate(-50%, -50%) scale(1.22) rotate(3deg);
+      filter: drop-shadow(0 10px 20px rgba(43, 101, 121, 0.28));
+    }
+
   </style>
 </head>
 <body class="font-sans antialiased bg-[#faf8f2] text-[#273931] min-h-screen selection:bg-[#d0e5d9] selection:text-[#183429]">
@@ -106,20 +119,19 @@
     </a>
 
     <!-- Navigation Links -->
-    <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
-      <a href="#home" class="text-[#19352b] font-semibold relative pb-1">
+    <nav id="mainNav" class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
+      <a href="#home" id="navHome" onclick="showPublicSection('home'); return false;" class="text-[#19352b] font-semibold relative pb-1 transition-colors">
         Home
-        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full"></span>
+        <span class="nav-indicator absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full"></span>
       </a>
-      <a href="#features" class="hover:text-[#18342a] transition-colors">Features</a>
-      <a href="#how-it-works" class="hover:text-[#18342a] transition-colors">How It Works</a>
-      <a href="about.html" class="hover:text-[#18342a] transition-colors">About Us</a>
-      <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
-      <a href="feedback.html" class="hover:text-[#18342a] transition-colors">Feedback</a>
+      <a href="#features" id="navFeatures" onclick="showPublicSection('home', 'features'); return false;" class="hover:text-[#18342a] transition-colors relative pb-1">Features</a>
+      <a href="#how-it-works" id="navHowItWorks" onclick="showPublicSection('home', 'how-it-works'); return false;" class="hover:text-[#18342a] transition-colors relative pb-1">How It Works</a>
+      <a href="#about" id="navAbout" onclick="showPublicSection('about'); return false;" class="hover:text-[#18342a] transition-colors relative pb-1">About Us</a>
+      <a href="#feedback" id="navFeedback" onclick="showPublicSection('feedback'); return false;" class="hover:text-[#18342a] transition-colors relative pb-1">Feedback</a>
     </nav>
 
     <!-- Auth Actions -->
-    <div class="flex items-center gap-7">
+    <div id="authActions" class="flex items-center gap-7">
       <a href="login.html" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820] transition-colors">Log In</a>
       <a href="signup.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200">
         Get Started Free
@@ -127,6 +139,17 @@
     </div>
   </header>
 
+  <!-- Mobile Responsive Navigation Strip -->
+  <div class="flex md:hidden items-center justify-around text-xs font-semibold text-[#4f645a] py-2.5 border-y border-[#e8ece7] bg-[#f5f3ec]/90 backdrop-blur-xs px-4 sticky top-0 z-40">
+    <a href="#home" id="mNavHome" onclick="showPublicSection('home'); return false;" class="text-[#19352b] font-bold">Home</a>
+    <a href="#features" id="mNavFeatures" onclick="showPublicSection('home', 'features'); return false;" class="hover:text-[#18342a]">Features</a>
+    <a href="#how-it-works" id="mNavHowItWorks" onclick="showPublicSection('home', 'how-it-works'); return false;" class="hover:text-[#18342a]">How It Works</a>
+    <a href="#about" id="mNavAbout" onclick="showPublicSection('about'); return false;" class="hover:text-[#18342a]">About Us</a>
+    <a href="#feedback" id="mNavFeedback" onclick="showPublicSection('feedback'); return false;" class="hover:text-[#18342a]">Feedback</a>
+  </div>
+
+  <!-- ==================== SECTION: HOME (HERO, FEATURES, HOW IT WORKS, STUDIO PREVIEW) ==================== -->
+  <div id="section-home">
   <!-- ==================== HERO SECTION ==================== -->
   <section id="home" class="relative pt-10 pb-20 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -661,10 +684,10 @@
                       <svg class="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                       <span>Saved Chats</span>
                     </a>
-                    <a href="knowledge-base.html" class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-200/50 transition-colors">
+                    <div class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-200/50 transition-colors cursor-default">
                       <svg class="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
                       <span>Knowledge Base</span>
-                    </a>
+                    </div>
                     <a href="#" class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-200/50 transition-colors">
                       <svg class="w-3.5 h-3.5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                       <span>Settings</span>
@@ -935,14 +958,14 @@
 
         <!-- Action Row leading to about.html -->
         <div class="flex flex-wrap items-center gap-4">
-          <a href="about.html" class="bg-[#234238] hover:bg-[#173027] text-white text-[15px] font-medium px-7 py-3.5 rounded-full inline-flex items-center gap-2.5 shadow-soft hover:shadow-float transition-all duration-300 group">
+          <a href="#about" onclick="showPublicSection('about'); return false;" class="bg-[#234238] hover:bg-[#173027] text-white text-[15px] font-medium px-7 py-3.5 rounded-full inline-flex items-center gap-2.5 shadow-soft hover:shadow-float transition-all duration-300 group">
             <span>Visit Dedicated About Us Page</span>
             <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
             </svg>
           </a>
 
-          <a href="about.html#feature-grid" class="inline-flex items-center gap-2 text-sm font-semibold text-[#204539] hover:text-[#112921] px-4 py-3 rounded-full hover:bg-white/60 transition-colors">
+          <a href="#feature-grid" onclick="showPublicSection('about', 'feature-grid'); return false;" class="inline-flex items-center gap-2 text-sm font-semibold text-[#204539] hover:text-[#112921] px-4 py-3 rounded-full hover:bg-white/60 transition-colors">
             <span>Explore Design Pillars</span>
             <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
@@ -953,6 +976,529 @@
 
     </div>
   </section>
+  </div>
+
+  <!-- ==================== SECTION: ABOUT US (INTEGRATED) ==================== -->
+  <div id="section-about" class="hidden">
+<!-- Hero Header -->
+  <section class="pt-14 pb-8 px-6 sm:px-10 lg:px-16 max-w-4xl mx-auto text-center flex flex-col items-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e5efe9] border border-[#cce1d5] text-[11px] font-bold uppercase tracking-[0.22em] text-[#315746] mb-4">
+      <span class="w-2 h-2 rounded-full bg-[#4e886d] animate-pulse"></span>
+      COMSATS University Islamabad · Department of Computer Science
+    </div>
+    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[54px] text-[#18342a] leading-[1.14] tracking-tight">
+      Find answers you can trust.<br /><span class="text-[#2b6579]">Grounded. Modular. Quiet.</span>
+    </h1>
+    <p class="text-[#556960] text-[16px] leading-relaxed max-w-2xl mt-4 mx-auto">
+      Built by students in the Department of Computer Science at COMSATS University Islamabad to eliminate generative AI hallucinations and make multi-source data effortlessly searchable.
+    </p>
+  </section>
+
+  <!-- Split Layout: Mission Narrative & Pillars Card -->
+  <section class="py-12 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      
+      <!-- Left Column: Mission & Context -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="border-l-4 border-[#2b6579] pl-6 py-1">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#4c7062] mb-2">OUR CORE MISSION</p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-[#18342a] leading-snug">
+            To eliminate AI hallucinations by anchoring generative intelligence in cited, verifiable human documents.
+          </h2>
+        </div>
+
+        <div class="text-[#556960] text-[15.5px] leading-relaxed space-y-4">
+          <p>
+            In an era of conversational chatbots that speak with unwarranted confidence yet frequently fabricate facts, <strong class="text-[#18342a] font-semibold">Knowledge Studio</strong> was conceived with a strict standard: <em class="text-[#18342a]">truth must be mathematically verifiable</em>. Every paragraph produced is grounded in explicit chunk passages from your trusted files.
+          </p>
+          <p>
+            Developed within the <strong class="text-[#18342a] font-semibold">Department of Computer Science at COMSATS University Islamabad</strong>, Knowledge Studio originated as an advanced capstone inquiry into Retrieval-Augmented Generation (RAG). Confronted with the constant student dilemma of parsing hundreds of textbook chapters, dynamic web pages, and recorded seminar videos, our team engineered a unified RAG platform that bridges disparate data silos into a singular conversational interface.
+          </p>
+          <p>
+            From dense vector chunking and cosine similarity thresholds to our signature cream-and-quiet visual ergonomics, the system reflects both academic rigor and thoughtful software craft.
+          </p>
+        </div>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <button type="button" class="bg-[#244238] hover:bg-[#183229] text-white text-[15px] font-medium px-6 py-3.5 rounded-full inline-flex items-center gap-2.5 shadow-soft hover:shadow-float transition-all" onclick="openTeamModal();" data-bs-toggle="modal" data-bs-target="#comsatsTeamModal">
+            <svg class="w-4 h-4 text-[#a3c7b3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Meet COMSATS Team &amp; Specs</span>
+          </button>
+          <a href="#feature-grid" onclick="showPublicSection('about', 'feature-grid'); return false;" class="border border-[#cbd8d1] text-[#1f3d32] hover:bg-[#eaf2ed] text-[15px] font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2 transition-all">
+            <span>Explore Design Pillars</span>
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+        </div>
+
+        <div class="pt-2 flex items-center gap-2 text-xs font-semibold text-[#4c7062]">
+          <span class="inline-block w-2 h-2 rounded-full bg-[#4e886d]"></span>
+          <span>Department of Computer Science · COMSATS University Islamabad</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Key Design Pillars Card -->
+      <div class="lg:col-span-5">
+        <div class="bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] shadow-soft relative overflow-hidden">
+          <div class="flex items-center justify-between pb-5 mb-5 border-b border-[#e8e6dc]">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#4c7062] block mb-1">FOUNDATIONAL PRINCIPLES</span>
+              <h3 class="font-serif text-2xl text-[#18342a]">Key Design Pillars</h3>
+            </div>
+            <div class="w-10 h-10 rounded-2xl bg-[#dbe7df] text-[#2d5c47] flex items-center justify-center shadow-2xs">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+
+          <div class="space-y-5">
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#284638] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#cce1d5]">01</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">Verifiable Grounding Only</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Strict rejection of generative fabrications. Every insight corresponds to an indexed chunk with cosine similarity metrics.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#d6e7e4] text-[#20676a] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c2e0ef]">02</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">Cream &amp; Quiet Aesthetic</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Warm cream (#faf8f2 / #fdfbf7) canvas and watercolor accents that mitigate screen fatigue and foster deep focus.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#d7eaed] text-[#2b6579] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#c4e0e4]">03</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">Modular Cross-Modal Ingestion</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Harmonious unification of multi-column PDFs, headless web crawlers, and timestamped YouTube transcriptions.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <span class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#284638] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#cce1d5]">04</span>
+              <div>
+                <h4 class="text-[15px] font-semibold text-[#18342a] mb-1">COMSATS Academic Rigor</h4>
+                <p class="text-[13.5px] text-[#556960] leading-relaxed">Engineered and benchmarked under university research standards, ensuring open, ethical, and reproducible practices.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-[#e8e6dc] grid grid-cols-3 gap-2.5 text-center">
+            <div class="p-2.5 rounded-xl bg-white border border-[#e8e6dc]">
+              <span class="block font-serif text-lg font-bold text-[#18342a]">100%</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#546e62] font-semibold">Cited Sources</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white border border-[#e8e6dc]">
+              <span class="block font-serif text-lg font-bold text-[#18342a]">3-in-1</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#546e62] font-semibold">Modalities</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white border border-[#e8e6dc]">
+              <span class="block font-serif text-lg font-bold text-[#18342a]">0%</span>
+              <span class="text-[10px] uppercase tracking-wider text-[#546e62] font-semibold">Hallucination</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Three-Card Feature Grid -->
+  <section id="feature-grid" class="py-20 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-t border-[#e8ece7]">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <p class="text-xs tracking-[0.22em] font-bold text-[#4c7062] uppercase mb-2">FOUNDATION &amp; ARCHITECTURE</p>
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-[44px] text-[#18342a] leading-tight tracking-tight mb-3">Engineered for Truth &amp; Clarity.</h2>
+      <p class="text-[#556960] text-[15.5px] leading-relaxed mx-auto">Three core tenets define the Knowledge Studio engine, ensuring every retrieved answer is factual, multi-source, and cognitively calming.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      
+      <!-- Card 1: Zero-Hallucination Grounding -->
+      <div class="feature-card bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between group min-h-[380px]">
+        <div>
+          <div class="mb-6 flex items-center justify-start">
+            <div class="watercolor-splash-wrap w-16 h-16">
+              <svg class="watercolor-splash-svg w-24 h-24" viewBox="0 0 100 100" fill="none">
+                <radialGradient id="sp1" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#2b6579" stop-opacity="0.55"/><stop offset="50%" stop-color="#4e886d" stop-opacity="0.35"/><stop offset="100%" stop-color="#cce1d5" stop-opacity="0"/></radialGradient>
+                <path d="M48 10C64 9 78 18 86 32C94 46 91 62 81 74C71 86 53 92 38 88C23 84 10 72 8 56C6 40 18 24 31 16C36 12 42 10 48 10Z" fill="url(#sp1)"/>
+                <circle cx="82" cy="22" r="4.5" fill="#2b6579" fill-opacity="0.4"/>
+              </svg>
+              <div class="relative z-10 w-12 h-12 rounded-full bg-[#dbe7df] text-[#2d5c47] flex items-center justify-center shadow-sm">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-[#18342a] mb-2.5">Zero-Hallucination Grounding</h3>
+          <p class="text-[14.5px] leading-relaxed text-[#5a6e64] mb-6">Generative language models are bounded by deterministic cosine similarity thresholds (&ge; 0.78), citing explicit chunk passages directly from your files.</p>
+        </div>
+        <div class="pt-4 border-t border-[#e8e6dc] space-y-2 text-xs font-semibold text-[#315746]">
+          <div class="flex items-center gap-2">✓ Strict cosine cutoffs (&ge; 0.78)</div>
+          <div class="flex items-center gap-2">✓ Inline clickable chunk citations</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Modular Data Ingestion -->
+      <div class="feature-card bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between group min-h-[380px]">
+        <div>
+          <div class="mb-6 flex items-center justify-start">
+            <div class="watercolor-splash-wrap w-16 h-16">
+              <svg class="watercolor-splash-svg w-24 h-24" viewBox="0 0 100 100" fill="none">
+                <radialGradient id="sp2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2b6579" stop-opacity="0.6"/><stop offset="45%" stop-color="#20676a" stop-opacity="0.35"/><stop offset="100%" stop-color="#cce1d5" stop-opacity="0"/></radialGradient>
+                <path d="M42 8C60 6 75 14 84 27C93 40 95 59 86 73C77 87 60 95 44 91C28 87 14 77 9 61C4 45 9 28 22 17C28 12 35 9 42 8Z" fill="url(#sp2)"/>
+                <circle cx="16" cy="30" r="4.2" fill="#2b6579" fill-opacity="0.4"/>
+              </svg>
+              <div class="relative z-10 w-12 h-12 rounded-full bg-[#d6e7e4] text-[#20676a] flex items-center justify-center shadow-sm">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-[#18342a] mb-2.5">Modular Data Ingestion (PDF, Web, YT)</h3>
+          <p class="text-[14.5px] leading-relaxed text-[#5a6e64] mb-6">A unified tripartite data adapter that ingests diverse mediums: high-precision PDF parsing, DOM web crawling, and timestamped YouTube transcripts.</p>
+        </div>
+        <div class="pt-4 border-t border-[#e8e6dc] space-y-2 text-xs font-semibold text-[#315746]">
+          <div class="flex items-center gap-2">✓ Tables, figures &amp; structured PDFs</div>
+          <div class="flex items-center gap-2">✓ Millisecond video timestamp alignment</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Cream & Quiet Aesthetic -->
+      <div class="feature-card bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] transition-all hover:shadow-soft hover:-translate-y-1 flex flex-col justify-between group min-h-[380px]">
+        <div>
+          <div class="mb-6 flex items-center justify-start">
+            <div class="watercolor-splash-wrap w-16 h-16">
+              <svg class="watercolor-splash-svg w-24 h-24" viewBox="0 0 100 100" fill="none">
+                <radialGradient id="sp3" cx="48%" cy="48%" r="52%"><stop offset="0%" stop-color="#2b6579" stop-opacity="0.55"/><stop offset="50%" stop-color="#73a78d" stop-opacity="0.35"/><stop offset="100%" stop-color="#d7eaed" stop-opacity="0"/></radialGradient>
+                <path d="M50 10C68 10 82 20 88 36C94 52 88 70 76 81C64 92 46 92 31 85C16 78 8 62 9 46C10 30 22 18 36 12C41 10 45 10 50 10Z" fill="url(#sp3)"/>
+                <circle cx="86" cy="28" r="4.0" fill="#2b6579" fill-opacity="0.4"/>
+              </svg>
+              <div class="relative z-10 w-12 h-12 rounded-full bg-[#d7eaed] text-[#2c6579] flex items-center justify-center shadow-sm">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-[#18342a] mb-2.5">Cream &amp; Quiet Aesthetic</h3>
+          <p class="text-[14.5px] leading-relaxed text-[#5a6e64] mb-6">Designed to mitigate screen fatigue during prolonged academic research. Soft cream canvas (#faf8f2 / #fdfbf7) paired with soothing watercolor accents.</p>
+        </div>
+        <div class="pt-4 border-t border-[#e8e6dc] space-y-2 text-xs font-semibold text-[#315746]">
+          <div class="flex items-center gap-2">✓ Ergonomic #faf8f2 / #fdfbf7 palette</div>
+          <div class="flex items-center gap-2">✓ Organic watercolor blue visual cues</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMSATS Campus & Story -->
+  <section class="py-20 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto border-t border-[#e8ece7]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-4 flex justify-center lg:justify-start">
+        <div class="w-full max-w-[340px] aspect-[4/3] rounded-t-[9999px] rounded-b-3xl overflow-hidden shadow-soft border border-[#e2e8e3]">
+          <img src="assets/comsats-students.jpg" alt="COMSATS Student Workspace" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <p class="text-xs tracking-[0.22em] font-bold text-[#4c7062] uppercase mb-2">ABOUT THE PROJECT</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-[#18342a] leading-tight tracking-tight mb-4">Built by COMSATS Students</h2>
+        <p class="text-[#556960] text-[15px] leading-relaxed mb-6">
+          Knowledge Studio is a project developed by students in the Department of Computer Science at COMSATS University Islamabad to make knowledge accessible, searchable and verifiable without generative hallucinations.
+        </p>
+        <button type="button" class="border border-[#234238] text-[#234238] hover:bg-[#234238] hover:text-white text-sm font-semibold px-6 py-2.5 rounded-full inline-flex items-center gap-2 transition-all" onclick="openTeamModal();" data-bs-toggle="modal" data-bs-target="#comsatsTeamModal">
+          <span>View Team Blueprint &amp; Specs</span>
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div class="bg-[#d7eaed] rounded-3xl p-7 border border-[#c4e0e4] flex flex-col justify-between shadow-soft">
+          <div class="text-[#2c6579] font-serif text-5xl leading-none select-none mb-3">“</div>
+          <p class="font-serif italic text-[#183a38] text-[16.5px] leading-relaxed mb-6">"Knowledge isn't just information, it's a tool for a better future."</p>
+          <div class="text-[11px] font-semibold text-[#4e7477] uppercase tracking-wider">— Department of Computer Science, COMSATS University Islamabad</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-16 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+    <div class="bg-[#18332a] text-white rounded-3xl p-10 sm:p-14 text-center relative overflow-hidden shadow-float">
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <span class="text-xs uppercase tracking-[0.26em] text-[#a3c7b3] font-bold block mb-3">YOUR KNOWLEDGE. AMPLIFIED.</span>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight mb-5">Find answers in your documents, web and videos.</h2>
+        <p class="text-[#b3cec2] text-[15.5px] leading-relaxed mb-8">Upload your PDFs, crawl technical documentation, or import YouTube seminars. Get accurate, cited answers in seconds.</p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a href="signup.html" class="bg-white hover:bg-gray-100 text-[#18332a] text-[15px] font-semibold px-8 py-3.5 rounded-full shadow-soft transition-all">Get Started Free</a>
+          <a href="#home" onclick="showPublicSection('home'); return false;" class="bg-white/10 hover:bg-white/20 text-white text-[15px] font-semibold px-7 py-3.5 rounded-full border border-white/20 transition-all">Return to Live Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMSATS Team & Specs Modal (Unified Tailwind) -->
+  <div id="comsatsTeamModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#13241d]/60 backdrop-blur-xs hidden transition-opacity" onclick="if(event.target === this) closeTeamModal();">
+    <div class="bg-[#faf8f2] border border-[#e8e6dc] rounded-3xl max-w-2xl w-full shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+      <div class="border-b border-[#e8ece7] bg-[#f5f3ec] p-6 sm:p-7 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#4c7062] block mb-1">Department of Computer Science</span>
+          <h3 class="font-serif text-2xl text-[#18342a] mb-0" id="comsatsTeamModalLabel">COMSATS University Islamabad — Project Blueprint</h3>
+        </div>
+        <button type="button" onclick="closeTeamModal()" class="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-[#4f645a] hover:text-[#18342a] flex items-center justify-center transition-colors cursor-pointer border border-[#e2e8e3]">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-8 space-y-6">
+        <div class="bg-[#e5efe9] rounded-2xl p-4 sm:p-5 border border-[#cce1d5] flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-[#244238] text-white flex items-center justify-center font-serif font-bold text-lg">CI</div>
+          <div>
+            <h4 class="font-semibold text-sm text-[#18342a] mb-0.5">COMSATS University Islamabad</h4>
+            <p class="text-xs text-[#556960] mb-0">Department of Computer Science · COMSATS University Islamabad · Spring 2025</p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#315746] mb-3">Student Development Contributors</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-[#e8e6dc]">
+              <div class="w-8 h-8 rounded-full bg-[#dbe7df] text-[#284638] font-bold text-xs flex items-center justify-center mb-2">DS</div>
+              <span class="font-semibold text-sm text-[#18342a] block">Lead RAG Architect</span>
+              <span class="text-xs text-[#6e8076] block mt-0.5">Vector Embeddings &amp; Chunking</span>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-[#e8e6dc]">
+              <div class="w-8 h-8 rounded-full bg-[#d6e7e4] text-[#20676a] font-bold text-xs flex items-center justify-center mb-2">UI</div>
+              <span class="font-semibold text-sm text-[#18342a] block">Frontend &amp; UX Engineer</span>
+              <span class="text-xs text-[#6e8076] block mt-0.5">Tailwind, CSS &amp; Aesthetics</span>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-[#e8e6dc]">
+              <div class="w-8 h-8 rounded-full bg-[#d7eaed] text-[#2b6579] font-bold text-xs flex items-center justify-center mb-2">IN</div>
+              <span class="font-semibold text-sm text-[#18342a] block">Data Ingestion Specialist</span>
+              <span class="text-xs text-[#6e8076] block mt-0.5">PDF, Web Crawler &amp; YouTube APIs</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#315746] mb-3">Implemented Technology Stack</h4>
+          <div class="flex flex-wrap gap-2 text-xs font-semibold text-[#18342a]">
+            <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Tailwind CSS</span>
+            <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">HTML5 Semantic Architecture</span>
+            <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Newsreader &amp; Plus Jakarta Sans</span>
+            <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">Vector Embeddings (FAISS / Chroma)</span>
+            <span class="px-3 py-1 rounded-lg bg-white border border-[#cbd8d1]">PyPDF &amp; Headless Crawlers</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-[#e8ece7] bg-[#f7f6f0] px-6 py-4 flex items-center justify-between">
+        <span class="text-xs text-[#6e8076]">Knowledge Studio · COMSATS University Islamabad</span>
+        <button type="button" onclick="closeTeamModal()" class="bg-[#244238] hover:bg-[#183229] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-colors cursor-pointer">Close Blueprint</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ==================== SECTION: FEEDBACK (INTEGRATED) ==================== -->
+  <div id="section-feedback" class="hidden">
+<!-- Hero Header -->
+  <section class="pt-10 pb-6 px-6 sm:px-10 lg:px-16 max-w-4xl mx-auto text-center flex flex-col items-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e5efe9] border border-[#cce1d5] text-[11px] font-bold uppercase tracking-[0.22em] text-[#315746] mb-3">
+      <span class="w-2 h-2 rounded-full bg-[#4e886d]"></span>
+      Continuous Quality Improvement
+    </div>
+    <h1 class="font-serif text-4xl sm:text-5xl text-[#18342a] leading-tight tracking-tight">
+      User Feedback &amp; Review Studio
+    </h1>
+    <p class="text-[#556960] text-[15.5px] leading-relaxed max-w-2xl mt-3 mx-auto">
+      Help us refine our RAG retrieval metrics, PDF chunk parsing, and quiet visual aesthetics. Every submission directly influences our next deployment cycle.
+    </p>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-8 w-full space-y-12">
+    
+    <!-- Top Row: Form Card (Col 7) + KPI Summary Card (Col 5) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Interactive Pure HTML Feedback Form -->
+      <div class="lg:col-span-7 bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] shadow-soft">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-[#e8e6dc]">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#4c7062] block mb-1">SUBMIT YOUR EVALUATION</span>
+            <h2 class="font-serif text-2xl text-[#18342a]">How was your studio experience?</h2>
+          </div>
+          <span class="text-xs font-semibold text-[#2b6579] bg-[#d7eaed] px-3 py-1 rounded-full">COMSATS Peer Audit</span>
+        </div>
+
+        <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)" class="space-y-6">
+          
+          <!-- Rating Star Radio Option Row -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#315746] mb-2">Overall Satisfaction Rating</label>
+            <div class="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-bold text-amber-600 bg-white p-3 rounded-2xl border border-[#d6e0da]">
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="5" checked class="accent-[#244238]" />
+                <span>5 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="4" class="accent-[#244238]" />
+                <span>4 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="3" class="accent-[#244238]" />
+                <span>3 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="2" class="accent-[#244238]" />
+                <span>2 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="1" class="accent-[#244238]" />
+                <span>1 ★</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Category Select -->
+          <div>
+            <label for="fbCategory" class="block text-xs font-bold uppercase tracking-wider text-[#315746] mb-2">Primary Module Focus</label>
+            <select id="fbCategory" name="category" class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#18342a] outline-none cursor-pointer">
+              <option value="RAG Grounding Accuracy">RAG Grounding Accuracy</option>
+              <option value="PDF &amp; Document Parser">PDF &amp; Document Parser</option>
+              <option value="UI &amp; Visual Ergonomics">UI &amp; Visual Ergonomics</option>
+              <option value="Latency &amp; Speed">Latency &amp; Speed</option>
+            </select>
+          </div>
+
+          <!-- Input Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="fbName" class="block text-xs font-semibold text-[#273931] mb-1">Your Name</label>
+              <input type="text" id="fbName" name="name" required placeholder="e.g. Ameema Iman" class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl px-3.5 py-2.5 text-xs text-[#18342a] outline-none" />
+            </div>
+            <div>
+              <label for="fbEmail" class="block text-xs font-semibold text-[#273931] mb-1">Email Address</label>
+              <input type="email" id="fbEmail" name="email" required placeholder="name@comsats.edu.pk" class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl px-3.5 py-2.5 text-xs text-[#18342a] outline-none" />
+            </div>
+          </div>
+
+          <!-- Review Textarea -->
+          <div>
+            <label for="fbComment" class="block text-xs font-semibold text-[#273931] mb-1">Detailed Review Comments</label>
+            <textarea id="fbComment" name="comment" rows="4" required placeholder="Tell us how citations, cosine bars, or search worked for your workflow..." class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl p-3.5 text-xs text-[#18342a] outline-none"></textarea>
+          </div>
+
+          <button type="submit" class="bg-[#244238] hover:bg-[#183229] text-white text-xs font-semibold px-8 py-3 rounded-full shadow-soft hover:shadow-float transition-all inline-flex items-center gap-2">
+            <span>Submit Feedback Review</span>
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- KPI Stats Sidebar -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-[#f5f3ec] rounded-3xl p-7 border border-[#e8e6dc] shadow-soft">
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#4c7062] block mb-2">SYSTEM METRICS</span>
+          <h3 class="font-serif text-2xl text-[#18342a] mb-4">Satisfaction Scorecard</h3>
+          
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                <span>RAG Accuracy Rating</span>
+                <span class="text-[#2b6579]">4.9 / 5.0</span>
+              </div>
+              <div class="w-full bg-[#e2e8e3] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#2b6579] h-full w-[98%]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                <span>Visual Ergonomics (Cream Theme)</span>
+                <span class="text-[#315746]">4.8 / 5.0</span>
+              </div>
+              <div class="w-full bg-[#e2e8e3] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#315746] h-full w-[96%]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                <span>Vector Retrieval Speed</span>
+                <span class="text-[#2b6579]">4.7 / 5.0</span>
+              </div>
+              <div class="w-full bg-[#e2e8e3] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#2b6579] h-full w-[94%]"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-[#e8e6dc] grid grid-cols-2 gap-3 text-center">
+            <div class="bg-white p-3 rounded-2xl border border-[#e8e6dc]">
+              <span class="block font-serif text-2xl font-bold text-[#18342a]">99.4%</span>
+              <span class="text-[10px] font-semibold text-[#546e62] uppercase">Positive Sentiment</span>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border border-[#e8e6dc]">
+              <span class="block font-serif text-2xl font-bold text-[#18342a]">&lt; 42ms</span>
+              <span class="text-[10px] font-semibold text-[#546e62] uppercase">Avg Retrieval</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#d7eaed] rounded-3xl p-6 border border-[#c4e0e4] text-[#183a38]">
+          <h4 class="font-serif text-lg font-semibold mb-2">Need Direct Technical Support?</h4>
+          <p class="text-xs leading-relaxed mb-4 text-[#35585b]">
+            Reach out directly to the Computer Science capstone lab for custom vector store configurations or API support.
+          </p>
+          <a href="mailto:support@comsats.edu.pk" class="bg-[#2b6579] text-white text-xs font-semibold px-5 py-2.5 rounded-full inline-block hover:bg-[#1f4b5a] transition-colors">Contact Engineering Lab</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Community Review Ledger Table -->
+    <section class="bg-white rounded-3xl border border-[#e8e6dc] p-6 sm:p-8 shadow-soft">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#e8e6dc] mb-6">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#4c7062] block mb-1">TRANSPARENT REVIEWS</span>
+          <h3 class="font-serif text-2xl text-[#18342a]">Community Feedback Ledger</h3>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#f5f3ec] border-b border-[#e8e6dc] text-[10.5px] font-mono uppercase text-[#546e62]">
+              <th class="py-3 px-4">User</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Rating</th>
+              <th class="py-3 px-4">Comment</th>
+              <th class="py-3 px-4 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#e8e6dc] text-xs">
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-[#18342a]">Ali Raza</td>
+              <td class="py-3.5 px-4"><span class="bg-[#e5efe9] text-[#284638] px-2.5 py-1 rounded-full text-[10px] font-semibold">RAG Grounding Accuracy</span></td>
+              <td class="py-3.5 px-4 text-amber-500 font-bold">★★★★★ (5/5)</td>
+              <td class="py-3.5 px-4 text-[#556960]">The cosine similarity bars on the right pane give great confidence in citations!</td>
+              <td class="py-3.5 px-4 text-right"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-semibold">Reviewed</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-[#18342a]">Sara Ahmed</td>
+              <td class="py-3.5 px-4"><span class="bg-[#d7eaed] text-[#2b6579] px-2.5 py-1 rounded-full text-[10px] font-semibold">UI &amp; Visual Ergonomics</span></td>
+              <td class="py-3.5 px-4 text-amber-500 font-bold">★★★★★ (5/5)</td>
+              <td class="py-3.5 px-4 text-[#556960]">Love the cream aesthetic. It reduces eye strain when reading long PDF chunks.</td>
+              <td class="py-3.5 px-4 text-right"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-semibold">Reviewed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Section -->
+  </div>
 
   <!-- ==================== SECTION 6: FOOTER ==================== -->
   <footer class="relative bg-[#18332a] text-white overflow-hidden pt-16 pb-12">
@@ -990,7 +1536,6 @@
           <a href="#features" class="hover:text-white transition-colors">Features</a>
           <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
           <a href="about.html" class="hover:text-white transition-colors">About Us</a>
-          <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
           <a href="#feedback" class="hover:text-white transition-colors">Feedback</a>
         </nav>
 
@@ -1035,6 +1580,226 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    function updateNavForAuth() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || sessionStorage.getItem('isLoggedIn') === 'true';
+      const mainNav = document.getElementById('mainNav');
+      const authActions = document.getElementById('authActions');
+      
+      if (isLoggedIn && mainNav && authActions) {
+        if (!document.getElementById('nav-chat')) {
+          const chatLink = document.createElement('a');
+          chatLink.id = 'nav-chat';
+          chatLink.href = 'chat.html';
+          chatLink.className = 'hover:text-[#18342a] transition-colors font-medium';
+          chatLink.textContent = 'Chat';
+
+          const kbLink = document.createElement('a');
+          kbLink.id = 'nav-kb';
+          kbLink.href = 'chat.html#knowledge-base';
+          kbLink.className = 'hover:text-[#18342a] transition-colors font-medium';
+          kbLink.textContent = 'Knowledge Base';
+
+          const aboutLink = document.getElementById('navAbout');
+          if (aboutLink) {
+            mainNav.insertBefore(chatLink, aboutLink);
+            mainNav.insertBefore(kbLink, aboutLink);
+          } else {
+            mainNav.appendChild(chatLink);
+            mainNav.appendChild(kbLink);
+          }
+        }
+
+        authActions.innerHTML = `
+          <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200">
+            Chat Studio
+          </a>
+          <button onclick="logout(event)" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820] transition-colors cursor-pointer">
+            Log Out
+          </button>
+        `;
+      }
+    }
+
+    function logout(e) {
+      if (e) e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
+
+
+    // Unified Public Section Navigation Switcher (Home <-> About Us <-> Feedback)
+    function showPublicSection(section, anchorId) {
+      const secHome = document.getElementById('section-home');
+      const secAbout = document.getElementById('section-about');
+      const secFeedback = document.getElementById('section-feedback');
+
+      const navLinks = {
+        home: document.getElementById('navHome'),
+        features: document.getElementById('navFeatures'),
+        howItWorks: document.getElementById('navHowItWorks'),
+        about: document.getElementById('navAbout'),
+        feedback: document.getElementById('navFeedback')
+      };
+
+      const mNavLinks = {
+        home: document.getElementById('mNavHome'),
+        features: document.getElementById('mNavFeatures'),
+        howItWorks: document.getElementById('mNavHowItWorks'),
+        about: document.getElementById('mNavAbout'),
+        feedback: document.getElementById('mNavFeedback')
+      };
+
+      // Hide all main section containers
+      if (secHome) secHome.classList.add('hidden');
+      if (secAbout) secAbout.classList.add('hidden');
+      if (secFeedback) secFeedback.classList.add('hidden');
+
+      // Reset desktop active nav indicators
+      Object.values(navLinks).forEach(a => {
+        if (!a) return;
+        a.className = 'hover:text-[#18342a] transition-colors relative pb-1';
+        const indicator = a.querySelector('.nav-indicator');
+        if (indicator) indicator.remove();
+      });
+
+      // Reset mobile active styles
+      Object.values(mNavLinks).forEach(a => {
+        if (!a) return;
+        a.className = 'hover:text-[#18342a]';
+      });
+
+      function setActive(link, mLink) {
+        if (link) {
+          link.className = 'text-[#19352b] font-semibold relative pb-1 transition-colors';
+          if (!link.querySelector('.nav-indicator')) {
+            const span = document.createElement('span');
+            span.className = 'nav-indicator absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full';
+            link.appendChild(span);
+          }
+        }
+        if (mLink) {
+          mLink.className = 'text-[#19352b] font-bold';
+        }
+      }
+
+      if (section === 'about') {
+        if (secAbout) secAbout.classList.remove('hidden');
+        setActive(navLinks.about, mNavLinks.about);
+        document.title = 'About Us — Knowledge Studio AI';
+        try { history.replaceState(null, '', '#about'); } catch (e) {}
+      } else if (section === 'feedback') {
+        if (secFeedback) secFeedback.classList.remove('hidden');
+        setActive(navLinks.feedback, mNavLinks.feedback);
+        document.title = 'User Feedback & Reviews — Knowledge Studio AI';
+        try { history.replaceState(null, '', '#feedback'); } catch (e) {}
+      } else {
+        // Default to home view
+        if (secHome) secHome.classList.remove('hidden');
+        if (anchorId === 'features') {
+          setActive(navLinks.features, mNavLinks.features);
+          try { history.replaceState(null, '', '#features'); } catch (e) {}
+        } else if (anchorId === 'how-it-works') {
+          setActive(navLinks.howItWorks, mNavLinks.howItWorks);
+          try { history.replaceState(null, '', '#how-it-works'); } catch (e) {}
+        } else {
+          setActive(navLinks.home, mNavLinks.home);
+          try { history.replaceState(null, '', '#home'); } catch (e) {}
+        }
+      }
+
+      if (anchorId) {
+        setTimeout(() => {
+          const target = document.getElementById(anchorId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 60);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Modal controls for COMSATS Blueprint Specs
+    function openTeamModal() {
+      const modal = document.getElementById('comsatsTeamModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+    function closeTeamModal() {
+      const modal = document.getElementById('comsatsTeamModal');
+      if (modal) modal.classList.add('hidden');
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeTeamModal();
+    });
+
+    // Feedback submission handler
+    function handleFeedbackSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn ? btn.innerHTML : 'Submit';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>Saving Review...</span>';
+      }
+      setTimeout(() => {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>✓ Review Recorded!</span>';
+        }
+        showFeedbackToast('Thank you! Your feedback has been recorded to the community ledger.');
+        form.reset();
+        setTimeout(() => {
+          if (btn) btn.innerHTML = originalText;
+        }, 3000);
+      }, 500);
+    }
+
+    function showFeedbackToast(msg) {
+      const toast = document.getElementById('feedbackToast');
+      const msgEl = document.getElementById('feedbackToastMsg');
+      if (toast && msgEl) {
+        msgEl.textContent = msg;
+        toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        }, 4000);
+      }
+    }
+
+    // Handle deep links and URL hash routing
+    function handleHashRoute() {
+      const hash = (window.location.hash || '').toLowerCase();
+      if (hash === '#about' || hash === '#about-us') {
+        showPublicSection('about');
+      } else if (hash === '#feedback' || hash === '#reviews') {
+        showPublicSection('feedback');
+      } else if (hash === '#feature-grid') {
+        showPublicSection('about', 'feature-grid');
+      } else if (hash === '#features') {
+        showPublicSection('home', 'features');
+      } else if (hash === '#how-it-works') {
+        showPublicSection('home', 'how-it-works');
+      } else {
+        showPublicSection('home');
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashRoute);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateNavForAuth();
+      handleHashRoute();
+    });
+  </script>
+  <!-- Feedback Toast Notification -->
+  <div id="feedbackToast" class="fixed bottom-6 right-6 z-50 bg-[#18342a] text-white text-xs sm:text-sm font-medium px-5 py-3 rounded-2xl shadow-float border border-[#315746] flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span id="feedbackToastMsg">Thank you! Your feedback has been recorded.</span>
+  </div>
 
 </body>
 </html>
