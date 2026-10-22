@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Feedback &amp; Support — Knowledge Studio AI</title>
+  
+  <!-- Fonts & Frameworks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { serif: ['Newsreader', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#f4f8f5', 100: '#e5efe9', 200: '#cce1d5', 500: '#4e886d', 600: '#3c6e57', 700: '#315746', 800: '#284638', 900: '#1b342a' },
+            tealAccent: '#2b6579', canvas: '#faf8f2', cardBg: '#f6f4ec'
+          },
+          boxShadow: {
+            'soft': '0 8px 24px -4px rgba(27, 54, 43, 0.05)',
+            'float': '0 16px 36px -8px rgba(22, 45, 36, 0.09)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #faf8f2; color: #273931; font-family: 'Plus Jakarta Sans', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    ::selection { background: #cce1d5; color: #162d23; }
+  </style>
+</head>
+<body class="bg-[#faf8f2] text-[#273931] min-h-screen flex flex-col justify-between selection:bg-[#d0e5d9] selection:text-[#183429]">
+
+  <!-- Header Navigation -->
+  <header class="w-full pt-7 pb-4 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto flex items-center justify-between relative z-50">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 flex items-center justify-center text-[#1c382e] transition-transform group-hover:scale-105">
+        <svg class="w-9 h-9" viewBox="0 0 36 36" fill="none" stroke="#1d382e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 4C14 4 11 6.5 9.5 9.5C7.5 10 5.5 12 5.5 14.8C5.5 16.5 6.3 18 7.5 19C6.8 20.2 6.5 21.6 6.5 23C6.5 26.2 9.2 29 12.5 29C13.3 29 14.1 28.8 14.8 28.4C15.8 30 17.5 31 19.5 31C22.2 31 24.5 29.2 25.1 26.8C25.7 27 26.3 27.1 27 27.1C30 27.1 32.5 24.7 32.5 21.7C32.5 20.3 32 19 31.1 18.1C31.9 17 32.5 15.5 32.5 13.8C32.5 10.7 30 8.3 27 8.3C26.4 8.3 25.8 8.4 25.2 8.6C23.8 5.8 21.2 4 18 4Z" stroke-width="1.8"/>
+          <path d="M18 6V29M14 11.5c1.5 1.5 2.8 3.3 4 4.5M22 11.5c-1.5 1.5-2.8 3.3-4 4.5"/>
+        </svg>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-serif text-[22px] font-semibold text-[#18342a] tracking-tight leading-none">Knowledge Studio</span>
+        <span class="text-[8.5px] tracking-[0.3em] font-semibold text-[#546e62] uppercase mt-1">RAG · SEARCH · AI</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
+      <a href="index.html" class="hover:text-[#18342a] transition-colors">Home</a>
+      <a href="chat.html" class="hover:text-[#18342a] transition-colors">RAG Chat Studio</a>
+      <a href="knowledge-base.html" class="hover:text-[#18342a] transition-colors">Knowledge Base</a>
+      <a href="about.html" class="hover:text-[#18342a] transition-colors">About Us</a>
+      <a href="feedback.html" class="text-[#19352b] font-semibold relative pb-1">
+        Feedback
+        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-[#19352b] rounded-full"></span>
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-7">
+      <a href="login.html" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820]">Log In</a>
+      <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">Launch Studio</a>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="pt-10 pb-6 px-6 sm:px-10 lg:px-16 max-w-4xl mx-auto text-center flex flex-col items-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e5efe9] border border-[#cce1d5] text-[11px] font-bold uppercase tracking-[0.22em] text-[#315746] mb-3">
+      <span class="w-2 h-2 rounded-full bg-[#4e886d]"></span>
+      Continuous Quality Improvement
+    </div>
+    <h1 class="font-serif text-4xl sm:text-5xl text-[#18342a] leading-tight tracking-tight">
+      User Feedback &amp; Review Studio
+    </h1>
+    <p class="text-[#556960] text-[15.5px] leading-relaxed max-w-2xl mt-3 mx-auto">
+      Help us refine our RAG retrieval metrics, PDF chunk parsing, and quiet visual aesthetics. Every submission directly influences our next deployment cycle.
+    </p>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-8 w-full space-y-12">
+    
+    <!-- Top Row: Form Card (Col 7) + KPI Summary Card (Col 5) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Interactive Pure HTML Feedback Form -->
+      <div class="lg:col-span-7 bg-[#f5f3ec] rounded-3xl p-8 border border-[#e8e6dc] shadow-soft">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-[#e8e6dc]">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#4c7062] block mb-1">SUBMIT YOUR EVALUATION</span>
+            <h2 class="font-serif text-2xl text-[#18342a]">How was your studio experience?</h2>
+          </div>
+          <span class="text-xs font-semibold text-[#2b6579] bg-[#d7eaed] px-3 py-1 rounded-full">COMSATS Peer Audit</span>
+        </div>
+
+        <form action="feedback.html" method="GET" class="space-y-6">
+          
+          <!-- Rating Star Radio Option Row -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#315746] mb-2">Overall Satisfaction Rating</label>
+            <div class="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-bold text-amber-600 bg-white p-3 rounded-2xl border border-[#d6e0da]">
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="5" checked class="accent-[#244238]" />
+                <span>5 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="4" class="accent-[#244238]" />
+                <span>4 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="3" class="accent-[#244238]" />
+                <span>3 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="2" class="accent-[#244238]" />
+                <span>2 ★</span>
+              </label>
+              <label class="flex items-center gap-1 cursor-pointer">
+                <input type="radio" name="rating" value="1" class="accent-[#244238]" />
+                <span>1 ★</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Category Select -->
+          <div>
+            <label for="fbCategory" class="block text-xs font-bold uppercase tracking-wider text-[#315746] mb-2">Primary Module Focus</label>
+            <select id="fbCategory" name="category" class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#18342a] outline-none cursor-pointer">
+              <option value="RAG Grounding Accuracy">RAG Grounding Accuracy</option>
+              <option value="PDF &amp; Document Parser">PDF &amp; Document Parser</option>
+              <option value="UI &amp; Visual Ergonomics">UI &amp; Visual Ergonomics</option>
+              <option value="Latency &amp; Speed">Latency &amp; Speed</option>
+            </select>
+          </div>
+
+          <!-- Input Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="fbName" class="block text-xs font-semibold text-[#273931] mb-1">Your Name</label>
+              <input type="text" id="fbName" name="name" required placeholder="e.g. Ameema Iman" class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl px-3.5 py-2.5 text-xs text-[#18342a] outline-none" />
+            </div>
+            <div>
+              <label for="fbEmail" class="block text-xs font-semibold text-[#273931] mb-1">Email Address</label>
+              <input type="email" id="fbEmail" name="email" required placeholder="name@comsats.edu.pk" class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl px-3.5 py-2.5 text-xs text-[#18342a] outline-none" />
+            </div>
+          </div>
+
+          <!-- Review Textarea -->
+          <div>
+            <label for="fbComment" class="block text-xs font-semibold text-[#273931] mb-1">Detailed Review Comments</label>
+            <textarea id="fbComment" name="comment" rows="4" required placeholder="Tell us how citations, cosine bars, or search worked for your workflow..." class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] rounded-xl p-3.5 text-xs text-[#18342a] outline-none"></textarea>
+          </div>
+
+          <button type="submit" class="bg-[#244238] hover:bg-[#183229] text-white text-xs font-semibold px-8 py-3 rounded-full shadow-soft hover:shadow-float transition-all inline-flex items-center gap-2">
+            <span>Submit Feedback Review</span>
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- KPI Stats Sidebar -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-[#f5f3ec] rounded-3xl p-7 border border-[#e8e6dc] shadow-soft">
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#4c7062] block mb-2">SYSTEM METRICS</span>
+          <h3 class="font-serif text-2xl text-[#18342a] mb-4">Satisfaction Scorecard</h3>
+          
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                <span>RAG Accuracy Rating</span>
+                <span class="text-[#2b6579]">4.9 / 5.0</span>
+              </div>
+              <div class="w-full bg-[#e2e8e3] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#2b6579] h-full w-[98%]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                <span>Visual Ergonomics (Cream Theme)</span>
+                <span class="text-[#315746]">4.8 / 5.0</span>
+              </div>
+              <div class="w-full bg-[#e2e8e3] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#315746] h-full w-[96%]"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                <span>Vector Retrieval Speed</span>
+                <span class="text-[#2b6579]">4.7 / 5.0</span>
+              </div>
+              <div class="w-full bg-[#e2e8e3] h-2 rounded-full overflow-hidden">
+                <div class="bg-[#2b6579] h-full w-[94%]"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-[#e8e6dc] grid grid-cols-2 gap-3 text-center">
+            <div class="bg-white p-3 rounded-2xl border border-[#e8e6dc]">
+              <span class="block font-serif text-2xl font-bold text-[#18342a]">99.4%</span>
+              <span class="text-[10px] font-semibold text-[#546e62] uppercase">Positive Sentiment</span>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border border-[#e8e6dc]">
+              <span class="block font-serif text-2xl font-bold text-[#18342a]">&lt; 42ms</span>
+              <span class="text-[10px] font-semibold text-[#546e62] uppercase">Avg Retrieval</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#d7eaed] rounded-3xl p-6 border border-[#c4e0e4] text-[#183a38]">
+          <h4 class="font-serif text-lg font-semibold mb-2">Need Direct Technical Support?</h4>
+          <p class="text-xs leading-relaxed mb-4 text-[#35585b]">
+            Reach out directly to the Computer Science capstone lab for custom vector store configurations or API support.
+          </p>
+          <a href="mailto:support@comsats.edu.pk" class="bg-[#2b6579] text-white text-xs font-semibold px-5 py-2.5 rounded-full inline-block hover:bg-[#1f4b5a] transition-colors">Contact Engineering Lab</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Community Review Ledger Table -->
+    <section class="bg-white rounded-3xl border border-[#e8e6dc] p-6 sm:p-8 shadow-soft">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#e8e6dc] mb-6">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#4c7062] block mb-1">TRANSPARENT REVIEWS</span>
+          <h3 class="font-serif text-2xl text-[#18342a]">Community Feedback Ledger</h3>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#f5f3ec] border-b border-[#e8e6dc] text-[10.5px] font-mono uppercase text-[#546e62]">
+              <th class="py-3 px-4">User</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Rating</th>
+              <th class="py-3 px-4">Comment</th>
+              <th class="py-3 px-4 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#e8e6dc] text-xs">
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-[#18342a]">Ali Raza</td>
+              <td class="py-3.5 px-4"><span class="bg-[#e5efe9] text-[#284638] px-2.5 py-1 rounded-full text-[10px] font-semibold">RAG Grounding Accuracy</span></td>
+              <td class="py-3.5 px-4 text-amber-500 font-bold">★★★★★ (5/5)</td>
+              <td class="py-3.5 px-4 text-[#556960]">The cosine similarity bars on the right pane give great confidence in citations!</td>
+              <td class="py-3.5 px-4 text-right"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-semibold">Reviewed</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-semibold text-[#18342a]">Sara Ahmed</td>
+              <td class="py-3.5 px-4"><span class="bg-[#d7eaed] text-[#2b6579] px-2.5 py-1 rounded-full text-[10px] font-semibold">UI &amp; Visual Ergonomics</span></td>
+              <td class="py-3.5 px-4 text-amber-500 font-bold">★★★★★ (5/5)</td>
+              <td class="py-3.5 px-4 text-[#556960]">Love the cream aesthetic. It reduces eye strain when reading long PDF chunks.</td>
+              <td class="py-3.5 px-4 text-right"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-semibold">Reviewed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="bg-[#18342a] text-white pt-10 pb-8 mt-16 border-t border-[#23483b]">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-8">
+        
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="w-9 h-9 flex items-center justify-center text-white">
+            <svg class="w-8 h-8" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 4C14 4 11 6.5 9.5 9.5C7.5 10 5.5 12 5.5 14.8C5.5 16.5 6.3 18 7.5 19C6.8 20.2 6.5 21.6 6.5 23C6.5 26.2 9.2 29 12.5 29C13.3 29 14.1 28.8 14.8 28.4C15.8 30 17.5 31 19.5 31C22.2 31 24.5 29.2 25.1 26.8C25.7 27 26.3 27.1 27 27.1C30 27.1 32.5 24.7 32.5 21.7C32.5 20.3 32 19 31.1 18.1C31.9 17 32.5 15.5 32.5 13.8C32.5 10.7 30 8.3 27 8.3C26.4 8.3 25.8 8.4 25.2 8.6C23.8 5.8 21.2 4 18 4Z"/>
+              <path d="M18 6V29M14 11.5c1.5 1.5 2.8 3.3 4 4.5M22 11.5c-1.5 1.5-2.8 3.3-4 4.5"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif text-xl font-semibold text-white leading-none">Knowledge Studio</span>
+            <span class="text-[8px] tracking-[0.3em] font-semibold text-[#8ca398] uppercase mt-1">RAG · SEARCH · AI</span>
+          </div>
+        </a>
+
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-[14.5px] font-medium text-[#b0c4ba]">
+          <a href="index.html" class="hover:text-white transition-colors">Home</a>
+          <a href="chat.html" class="hover:text-white transition-colors">RAG Chat Studio</a>
+          <a href="about.html" class="hover:text-white transition-colors">About Us</a>
+          <a href="knowledge-base.html" class="hover:text-white transition-colors">Knowledge Base</a>
+          <a href="feedback.html" class="text-white font-semibold">Feedback</a>
+        </nav>
+
+        <div class="flex items-center gap-5 text-[#b0c4ba]">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="border-t border-[#23483b] my-4"></div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 text-xs text-[#8ca398]">
+        <div>
+          © 2026 Knowledge Studio. Department of Computer Science, COMSATS University Islamabad.
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

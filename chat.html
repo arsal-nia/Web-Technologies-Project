@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG Chat Studio — Knowledge Studio AI</title>
+  
+  <!-- Google Fonts: Newsreader & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Frameworks: Bootstrap 5 CSS & Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: { 50: '#f4f8f5', 100: '#e5efe9', 200: '#cce1d5', 500: '#4e886d', 600: '#3c6e57', 700: '#315746', 800: '#284638', 900: '#1b342a' },
+            tealAccent: '#2b6579', canvas: '#faf8f2', cardBg: '#f6f4ec'
+          },
+          boxShadow: {
+            'soft': '0 8px 24px -4px rgba(27, 54, 43, 0.05)',
+            'float': '0 16px 36px -8px rgba(22, 45, 36, 0.09)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #faf8f2; color: #273931; font-family: 'Plus Jakarta Sans', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    ::selection { background: #cce1d5; color: #162d23; }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d3dfd8; border-radius: 9999px; }
+
+    /* Modal Styling Overrides */
+    .modal-content { background-color: #faf8f2 !important; border: 1px solid #e8e6dc !important; border-radius: 1.5rem !important; }
+    .modal-backdrop.show { opacity: 0.55 !important; background-color: #13241d !important; }
+    .modal-header { border-bottom: 1px solid #e8ece7 !important; background: #f5f3ec !important; padding: 1.25rem 1.75rem !important; }
+    .modal-footer { border-top: 1px solid #e8ece7 !important; background-color: #f7f6f0 !important; }
+
+    /* PURE CSS TAB SWITCHING (No JS Required) */
+    .chat-view { display: none; }
+    
+    #tab-new:checked ~ div main #pane-new { display: block; }
+    #tab-ml:checked ~ div main #pane-ml { display: block; }
+    #tab-cs:checked ~ div main #pane-cs { display: block; }
+
+    /* Active State Sidebar Highlights */
+    #tab-ml:checked ~ div aside #label-ml { background-color: #ffffff; border-color: #e2e8e3; color: #18342a; font-weight: 700; }
+    #tab-ml:checked ~ div aside #label-ml svg { color: #2b6579; }
+    
+    #tab-cs:checked ~ div aside #label-cs { background-color: #ffffff; border-color: #e2e8e3; color: #18342a; font-weight: 700; }
+    #tab-cs:checked ~ div aside #label-cs svg { color: #2b6579; }
+  </style>
+</head>
+<body class="h-full flex flex-col bg-[#faf8f2] text-[#273931] overflow-hidden">
+
+  <!-- Pure HTML Radio State Controllers for Session Switching -->
+  <input type="radio" name="chat-session" id="tab-new" class="hidden" checked />
+  <input type="radio" name="chat-session" id="tab-ml" class="hidden" />
+  <input type="radio" name="chat-session" id="tab-cs" class="hidden" />
+
+  <!-- ==================== HEADER NAVIGATION ==================== -->
+  <header class="w-full bg-[#f5f3ec] border-b border-[#e8e6dc] px-4 sm:px-6 py-3 flex items-center justify-between flex-shrink-0 z-30">
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 flex items-center justify-center text-[#1c382e]">
+          <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" stroke="#1d382e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 4C14 4 11 6.5 9.5 9.5C7.5 10 5.5 12 5.5 14.8C5.5 16.5 6.3 18 7.5 19C6.8 20.2 6.5 21.6 6.5 23C6.5 26.2 9.2 29 12.5 29C13.3 29 14.1 28.8 14.8 28.4C15.8 30 17.5 31 19.5 31C22.2 31 24.5 29.2 25.1 26.8C25.7 27 26.3 27.1 27 27.1C30 27.1 32.5 24.7 32.5 21.7C32.5 20.3 32 19 31.1 18.1C31.9 17 32.5 15.5 32.5 13.8C32.5 10.7 30 8.3 27 8.3C26.4 8.3 25.8 8.4 25.2 8.6C23.8 5.8 21.2 4 18 4Z"/>
+            <path d="M18 6V29M14 11.5c1.5 1.5 2.8 3.3 4 4.5M22 11.5c-1.5 1.5-2.8 3.3-4 4.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif text-lg font-semibold text-[#18342a] leading-none">Knowledge Studio</span>
+          <span class="text-[8px] font-mono tracking-widest text-[#546e62] uppercase mt-0.5">RAG Chat Studio</span>
+        </div>
+      </a>
+      <span class="text-gray-300">|</span>
+      
+      <!-- Model Selector Dropdown -->
+      <div class="flex items-center gap-2 bg-white px-3 py-1 rounded-full border border-[#e2e8e3] text-xs font-medium text-[#2d4036]">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <select class="bg-transparent font-semibold text-[#18342a] focus:outline-none cursor-pointer">
+          <option>GPT-4o (Vector Grounded)</option>
+          <option>Claude 3.5 Sonnet</option>
+          <option>Llama 3 70B (Local)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Header Navigation Links -->
+    <div class="flex items-center gap-4 text-xs font-semibold text-[#4f645a]">
+      <a href="index.html" class="hover:text-[#18342a] transition-colors">Dashboard</a>
+      <a href="knowledge-base.html" class="hover:text-[#18342a] hidden sm:inline-flex items-center gap-1.5 bg-[#e5efe9] text-[#284638] px-3 py-1.5 rounded-full border border-[#cce1d5]">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <span>Knowledge Base</span>
+      </a>
+      <a href="feedback.html" class="hover:text-[#18342a] transition-colors">Feedback &amp; Support</a>
+      <a href="about.html" class="hover:text-[#18342a] transition-colors">About Us</a>
+      <a href="index.html" class="hover:text-[#18342a] transition-colors">Exit Studio</a>
+      <div class="w-8 h-8 rounded-full bg-[#244238] text-white flex items-center justify-center font-bold text-xs shadow-sm">
+        DS
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 3-PANE WORKSPACE CONTAINER ==================== -->
+  <div class="flex-1 flex overflow-hidden">
+    
+    <!-- PANE 1: Left Sidebar -->
+    <aside class="w-64 bg-[#f5f3ec] border-r border-[#e8e6dc] flex flex-col justify-between flex-shrink-0 hidden md:flex">
+      <div class="p-3.5 space-y-4 overflow-y-auto">
+        
+        <!-- New Chat Session Button -->
+        <label for="tab-new" class="w-full bg-[#244238] hover:bg-[#183229] text-white py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>New Chat Session</span>
+        </label>
+
+        <!-- Recent Research Chats -->
+        <div>
+          <span class="text-[10px] font-mono uppercase font-bold text-[#62776c] tracking-wider block px-2 mb-2">Recent Research Chats</span>
+          <div class="space-y-1 text-xs font-medium text-[#3b5045]">
+            <label for="tab-ml" id="label-ml" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-xl border border-transparent hover:bg-white/60 cursor-pointer transition-all">
+              <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span class="truncate">Machine Learning Benefits</span>
+            </label>
+
+            <label for="tab-cs" id="label-cs" class="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-xl border border-transparent hover:bg-white/60 cursor-pointer transition-all">
+              <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span class="truncate">COMSATS CS Curriculum</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Active Source Filters -->
+        <div class="pt-3 border-t border-[#e8e6dc]">
+          <span class="text-[10px] font-mono uppercase font-bold text-[#62776c] tracking-wider block px-2 mb-2">Active Source Modalities</span>
+          <div class="space-y-1.5 text-xs text-[#4c6257]">
+            <label class="flex items-center justify-between px-2 py-1 rounded hover:bg-white/50 cursor-pointer">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                <span>PDF Documents (14)</span>
+              </span>
+              <input type="checkbox" checked class="accent-[#244238] rounded" />
+            </label>
+            <label class="flex items-center justify-between px-2 py-1 rounded hover:bg-white/50 cursor-pointer">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+                <span>Web Crawls (6)</span>
+              </span>
+              <input type="checkbox" checked class="accent-[#244238] rounded" />
+            </label>
+            <label class="flex items-center justify-between px-2 py-1 rounded hover:bg-white/50 cursor-pointer">
+              <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-red-600"></span>
+                <span>YouTube Seminars (4)</span>
+              </span>
+              <input type="checkbox" checked class="accent-[#244238] rounded" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3.5 border-t border-[#e8e6dc] bg-[#efece4] text-[11px] text-[#63776d] flex items-center justify-between">
+        <span>Vector DB: <strong class="text-[#18342a]">ChromaDB</strong></span>
+        <span class="font-mono text-[9.5px] bg-[#dbe7df] px-2 py-0.5 rounded text-[#284638]">Cosine &ge; 0.78</span>
+      </div>
+    </aside>
+
+    <!-- PANE 2: Center Interactive Chat Workspace -->
+    <main class="flex-1 flex flex-col justify-between bg-[#faf8f2] relative overflow-hidden">
+      
+      <!-- Scrollable Message Views Container -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-8 max-w-3xl mx-auto w-full">
+        
+        <!-- VIEW 1: NEW CHAT SESSION (EMPTY DEFAULT CANVAS) -->
+        <div id="pane-new" class="chat-view space-y-6">
+          <div class="text-center my-2">
+            <span class="text-[10.5px] font-mono text-[#73887c] bg-[#f0ede4] px-3 py-1 rounded-full border border-[#e4e0d4]">
+              New Session Initialized · Ready for input
+            </span>
+          </div>
+          <div id="new-welcome-state" class="text-center my-12 space-y-3">
+            <h3 class="font-serif text-2xl text-[#18342a]">How can Knowledge Studio assist your research today?</h3>
+            <p class="text-xs text-[#556960]">Ask a question across your active vector documents to begin.</p>
+          </div>
+          <div id="stream-new" class="space-y-6"></div>
+        </div>
+
+        <!-- VIEW 2: MACHINE LEARNING BENEFITS (1 Q&A Pair) -->
+        <div id="pane-ml" class="chat-view space-y-6">
+          <div class="text-center my-2">
+            <span class="text-[10.5px] font-mono text-[#73887c] bg-[#f0ede4] px-3 py-1 rounded-full border border-[#e4e0d4]">
+              Session 1 · Grounded in Machine Learning Basics Index
+            </span>
+          </div>
+
+          <div class="flex justify-end items-start gap-2.5">
+            <div class="bg-[#edf3f6] border border-[#d8e5ec] rounded-2xl rounded-tr-xs px-4 py-3 text-xs text-[#1e383a] font-medium max-w-[85%] leading-relaxed shadow-2xs">
+              Explain the core benefits of machine learning based on my ingested research files?
+            </div>
+            <div class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#244238] flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">U</div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <div class="w-7 h-7 rounded-full bg-[#244238] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 shadow-xs">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+            </div>
+            <div class="flex-1 space-y-3 bg-white p-5 rounded-2xl border border-[#e8e6dc] shadow-soft">
+              <p class="text-xs text-[#283d33] leading-relaxed">
+                Based on your indexed documents, machine learning enables automated pattern discovery in high-dimensional vector spaces and adaptive decision-making without explicit rule programming.
+              </p>
+              <div class="pt-3 border-t border-[#f0eee6] flex flex-wrap items-center gap-2">
+                <span class="text-[10.5px] font-bold text-[#556960] uppercase tracking-wider">Grounding Sources:</span>
+                <button type="button" class="bg-[#edf5f9] text-[#266275] px-2.5 py-1 rounded-lg text-[10.5px] font-semibold border border-[#d6e7f0]" data-bs-toggle="modal" data-bs-target="#chunkModal1">
+                  [1] ML_Basics.pdf (92%)
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="stream-ml" class="space-y-6"></div>
+        </div>
+
+        <!-- VIEW 3: COMSATS CS CURRICULUM (1 Q&A Pair) -->
+        <div id="pane-cs" class="chat-view space-y-6">
+          <div class="text-center my-2">
+            <span class="text-[10.5px] font-mono text-[#73887c] bg-[#f0ede4] px-3 py-1 rounded-full border border-[#e4e0d4]">
+              Session 2 · Grounded in COMSATS CS Department Syllabus
+            </span>
+          </div>
+
+          <div class="flex justify-end items-start gap-2.5">
+            <div class="bg-[#edf3f6] border border-[#d8e5ec] rounded-2xl rounded-tr-xs px-4 py-3 text-xs text-[#1e383a] font-medium max-w-[85%] leading-relaxed shadow-2xs">
+              What core subjects are included in the COMSATS Computer Science curriculum?
+            </div>
+            <div class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#244238] flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">U</div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <div class="w-7 h-7 rounded-full bg-[#244238] text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 shadow-xs">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+            </div>
+            <div class="flex-1 space-y-3 bg-white p-5 rounded-2xl border border-[#e8e6dc] shadow-soft">
+              <p class="text-xs text-[#283d33] leading-relaxed">
+                The COMSATS CS curriculum focuses on core computer science streams including Data Structures, Operating Systems, Object-Oriented Programming, Multivariable Calculus, and Machine Learning.
+              </p>
+              <div class="pt-3 border-t border-[#f0eee6] flex flex-wrap items-center gap-2">
+                <span class="text-[10.5px] font-bold text-[#556960] uppercase tracking-wider">Grounding Sources:</span>
+                <button type="button" class="bg-[#edf5f9] text-[#266275] px-2.5 py-1 rounded-lg text-[10.5px] font-semibold border border-[#d6e7f0]" data-bs-toggle="modal" data-bs-target="#chunkModal2">
+                  [1] COMSATS_Syllabus.pdf (95%)
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="stream-cs" class="space-y-6"></div>
+        </div>
+
+      </div>
+
+      <!-- Input Bar Footer Panel -->
+      <div class="p-4 sm:p-6 bg-[#f5f3ec] border-t border-[#e8e6dc] max-w-3xl mx-auto w-full rounded-t-3xl shadow-float">
+        
+        <!-- Prompt Suggestion Chips -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 mb-2 text-xs">
+          <span class="text-[10px] font-bold uppercase text-[#62776c]">Suggestions:</span>
+          <button type="button" onclick="fillSuggestion('Summarize key findings from PDF documents')" class="bg-white hover:bg-[#eaf2ed] text-[#284638] px-3 py-1 rounded-full border border-[#d8e3dc] whitespace-nowrap transition-colors">
+            Summarize PDF findings
+          </button>
+          <button type="button" onclick="fillSuggestion('Compare Web crawl with YouTube seminar')" class="bg-white hover:bg-[#eaf2ed] text-[#284638] px-3 py-1 rounded-full border border-[#d8e3dc] whitespace-nowrap transition-colors">
+            Compare Web vs YouTube
+          </button>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form onsubmit="handleSend(event)" class="relative flex items-center">
+          <input 
+            type="text" 
+            id="chatInput"
+            placeholder="Ask a question across your PDFs, Web, and YouTube sources..." 
+            class="w-full bg-white border border-[#d6e0da] focus:border-[#244238] focus:ring-2 focus:ring-[#244238]/15 rounded-full pl-5 pr-14 py-3.5 text-xs sm:text-sm text-[#18342a] placeholder-[#7d9387] outline-none shadow-soft transition-all"
+          />
+          <button 
+            type="submit" 
+            class="absolute right-2 w-9 h-9 rounded-full bg-[#244238] hover:bg-[#183229] text-white flex items-center justify-center transition-all shadow-sm"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </form>
+
+        <div class="mt-2 text-center text-[10px] text-[#6e8277]">
+          Grounded by Knowledge Studio RAG engine · Hallucinations mathematically bounded (&ge; 0.78 cutoff)
+        </div>
+      </div>
+    </main>
+
+    <!-- PANE 3: Right Context Drawer -->
+    <aside class="w-80 bg-[#f5f3ec] border-l border-[#e8e6dc] flex flex-col justify-between flex-shrink-0 hidden lg:flex">
+      <div class="p-4 space-y-4 overflow-y-auto">
+        <div class="flex items-center justify-between pb-3 border-b border-[#e8e6dc]">
+          <div>
+            <span class="text-[10px] font-mono uppercase font-bold text-[#62776c] block">RAG CONTEXT DRAWER</span>
+            <h3 class="font-serif text-lg font-semibold text-[#18342a]">Retrieved Chunks</h3>
+          </div>
+          <span class="text-xs font-mono font-bold text-[#2b6579] bg-[#d7eaed] px-2.5 py-0.5 rounded-full">Top Matches</span>
+        </div>
+
+        <div class="space-y-3">
+          <!-- Chunk Card 1: ML Basics PDF -->
+          <div class="p-3.5 bg-white rounded-2xl border border-[#e2e8e3] shadow-soft transition-all hover:border-[#2b6579]">
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <span class="font-bold text-[#18342a] truncate">1. Machine_Learning_Basics.pdf</span>
+              <span class="font-mono text-[10px] font-bold text-[#2b6579]">92%</span>
+            </div>
+            <p class="text-[11px] text-[#556960] leading-relaxed line-clamp-3 mb-2">
+              "Supervised learning algorithms build a mathematical model of a set of data that contains both the inputs and the desired outputs..."
+            </p>
+            <div class="w-full bg-[#e8ece7] h-1.5 rounded-full overflow-hidden mb-2">
+              <div class="bg-[#2b6579] h-full w-[92%] rounded-full"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-[#6e8277]">
+              <span>Chunk ID: #pdf_042</span>
+              <button type="button" class="text-[#2b6579] hover:underline font-semibold" data-bs-toggle="modal" data-bs-target="#chunkModal1">Inspect Payload &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Chunk Card 2: COMSATS CS Syllabus PDF -->
+          <div class="p-3.5 bg-white rounded-2xl border border-[#e2e8e3] shadow-soft transition-all hover:border-[#2b6579]">
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <span class="font-bold text-[#18342a] truncate">2. COMSATS_Syllabus.pdf</span>
+              <span class="font-mono text-[10px] font-bold text-[#2b6579]">95%</span>
+            </div>
+            <p class="text-[11px] text-[#556960] leading-relaxed line-clamp-3 mb-2">
+              "Course curriculum structures Data Structures &amp; Algorithms, Operating Systems (CPU Scheduling), OOP, Multivariable Calculus, and Machine Learning..."
+            </p>
+            <div class="w-full bg-[#e8ece7] h-1.5 rounded-full overflow-hidden mb-2">
+              <div class="bg-[#2b6579] h-full w-[95%] rounded-full"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-[#6e8277]">
+              <span>Chunk ID: #pdf_108</span>
+              <button type="button" class="text-[#2b6579] hover:underline font-semibold" data-bs-toggle="modal" data-bs-target="#chunkModal2">Inspect Payload &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3.5 border-t border-[#e8e6dc] bg-[#efece4] text-center">
+        <a href="knowledge-base.html" class="text-xs font-semibold text-[#244238] hover:underline inline-flex items-center gap-1">
+          <span>Manage Knowledge Base</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Modal 1: ML Basics -->
+  <div class="modal fade" id="chunkModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="text-[10px] font-mono uppercase font-bold text-[#4c7062] block mb-0.5">VECTOR CHUNK PAYLOAD</span>
+            <h5 class="font-serif text-xl text-[#18342a] mb-0">Machine_Learning_Basics.pdf</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-xs space-y-3">
+          <div class="flex items-center justify-between font-mono text-[11px] text-[#2b6579]">
+            <span>Chunk ID: #pdf_042</span>
+            <span>Cosine Similarity: 0.92</span>
+          </div>
+          <p class="p-3 rounded-xl bg-[#f5f3ec] border border-[#e8e6dc] leading-relaxed text-[#283d33]">
+            Supervised learning algorithms build a mathematical model of a set of data that contains both the inputs and the desired outputs.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm bg-[#244238] text-white rounded-full px-4" data-bs-dismiss="modal">Close Payload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: COMSATS Syllabus -->
+  <div class="modal fade" id="chunkModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="text-[10px] font-mono uppercase font-bold text-[#4c7062] block mb-0.5">VECTOR CHUNK PAYLOAD</span>
+            <h5 class="font-serif text-xl text-[#18342a] mb-0">COMSATS_Syllabus.pdf</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-xs space-y-3">
+          <div class="flex items-center justify-between font-mono text-[11px] text-[#2b6579]">
+            <span>Chunk ID: #pdf_108</span>
+            <span>Cosine Similarity: 0.95</span>
+          </div>
+          <p class="p-3 rounded-xl bg-[#f5f3ec] border border-[#e8e6dc] leading-relaxed text-[#283d33]">
+            The COMSATS CS curriculum focuses on core computer science streams including Data Structures &amp; Algorithms, Operating Systems (CPU Scheduling), Object-Oriented Programming (Java/C++), Multivariable Calculus, and Machine Learning.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm bg-[#244238] text-white rounded-full px-4" data-bs-dismiss="modal">Close Payload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Minimal JS for suggestions and text input -->
+  <script>
+    function fillSuggestion(text) {
+      document.getElementById('chatInput').value = text;
+    }
+
+    function handleSend(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const val = input.value.trim();
+      if (!val) return;
+
+      let activeStreamId = 'stream-new';
+      if (document.getElementById('tab-ml').checked) activeStreamId = 'stream-ml';
+      if (document.getElementById('tab-cs').checked) activeStreamId = 'stream-cs';
+
+      const welcomeState = document.getElementById('new-welcome-state');
+      if (activeStreamId === 'stream-new' && welcomeState) {
+        welcomeState.style.display = 'none';
+      }
+
+      const stream = document.getElementById(activeStreamId);
+      const uDiv = document.createElement('div');
+      uDiv.className = 'flex justify-end items-start gap-2.5 mt-4';
+      uDiv.innerHTML = `
+        <div class="bg-[#edf3f6] border border-[#d8e5ec] rounded-2xl rounded-tr-xs px-4 py-3 text-xs text-[#1e383a] font-medium max-w-[85%] leading-relaxed shadow-2xs">
+          ${val}
+        </div>
+        <div class="w-7 h-7 rounded-full bg-[#dbe7df] text-[#244238] flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">U</div>
+      `;
+      stream.appendChild(uDiv);
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
