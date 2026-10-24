@@ -59,7 +59,8 @@
 
     <nav id="mainNav" class="hidden md:flex items-center gap-7 lg:gap-9 text-[14.5px] font-medium text-[#4f645a]">
       <a href="index.html" class="hover:text-[#18342a] transition-colors">Home</a>
-      <a href="chat.html" class="hover:text-[#18342a] transition-colors">RAG Chat Studio</a>
+      <a href="index.html#features" class="hover:text-[#18342a] transition-colors">Features</a>
+      <a href="index.html#how-it-works" class="hover:text-[#18342a] transition-colors">How It Works</a>
       <a href="about.html" class="hover:text-[#18342a] transition-colors">About Us</a>
       <a href="feedback.html" class="text-[#19352b] font-semibold relative pb-1">
         Feedback
@@ -69,7 +70,7 @@
 
     <div id="authActions" class="flex items-center gap-7">
       <a href="login.html" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820]">Log In</a>
-      <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">Launch Studio</a>
+      <a href="signup.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">Get Started Free</a>
     </div>
   </header>
 
@@ -330,24 +331,15 @@
       const authActions = document.getElementById('authActions');
       
       if (isLoggedIn && mainNav && authActions) {
-        if (!document.getElementById('nav-kb')) {
-          const kbLink = document.createElement('a');
-          kbLink.id = 'nav-kb';
-          kbLink.href = 'chat.html#knowledge-base';
-          kbLink.className = 'hover:text-[#18342a] transition-colors font-medium';
-          kbLink.textContent = 'Knowledge Base';
-
-          const aboutLink = mainNav.querySelector('a[href="about.html"]');
-          if (aboutLink) {
-            mainNav.insertBefore(kbLink, aboutLink);
-          } else {
-            mainNav.appendChild(kbLink);
-          }
-        }
+        // Ensure Chat and Knowledge Base are not injected into the main header menu
+        const existingChat = document.getElementById('nav-chat');
+        if (existingChat) existingChat.remove();
+        const existingKb = document.getElementById('nav-kb');
+        if (existingKb) existingKb.remove();
 
         authActions.innerHTML = `
           <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200">
-            Chatbot Studio
+            Chat Studio
           </a>
           <button onclick="logout(event)" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820] transition-colors cursor-pointer">
             Log Out

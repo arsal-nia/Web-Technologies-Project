@@ -463,32 +463,15 @@
       const authActions = document.getElementById('authActions');
       
       if (isLoggedIn && mainNav && authActions) {
-        if (!document.getElementById('nav-kb')) {
-          const chatLink = document.createElement('a');
-          chatLink.id = 'nav-chat';
-          chatLink.href = 'chat.html';
-          chatLink.className = 'hover:text-[#18342a] transition-colors font-medium';
-          chatLink.textContent = 'Chatbot';
-
-          const kbLink = document.createElement('a');
-          kbLink.id = 'nav-kb';
-          kbLink.href = 'chat.html#knowledge-base';
-          kbLink.className = 'hover:text-[#18342a] transition-colors font-medium';
-          kbLink.textContent = 'Knowledge Base';
-
-          const feedbackLink = mainNav.querySelector('a[href="index.html#feedback"]');
-          if (feedbackLink) {
-            mainNav.insertBefore(chatLink, feedbackLink);
-            mainNav.insertBefore(kbLink, feedbackLink);
-          } else {
-            mainNav.appendChild(chatLink);
-            mainNav.appendChild(kbLink);
-          }
-        }
+        // Ensure Chat and Knowledge Base are not injected into the main header menu
+        const existingChat = document.getElementById('nav-chat');
+        if (existingChat) existingChat.remove();
+        const existingKb = document.getElementById('nav-kb');
+        if (existingKb) existingKb.remove();
 
         authActions.innerHTML = `
           <a href="chat.html" class="bg-[#244238] hover:bg-[#183229] text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200">
-            Chatbot Studio
+            Chat Studio
           </a>
           <button onclick="logout(event)" class="text-sm font-semibold text-[#1f3d32] hover:text-[#122820] transition-colors cursor-pointer">
             Log Out
