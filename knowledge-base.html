@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <script>
-    // Seamless routing into unified application
-    window.location.replace('chat.html#knowledge-base');
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Knowledge Base — Management & Multi-Modal Vector Storage</title>
@@ -138,7 +134,7 @@
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span>Chat</span>
       </a>
-      <a href="chat.html#knowledge-base" id="navBtnKb" class="transition-all px-3 py-1.5 rounded-full border border-[#cce1d5] bg-[#e5efe9] text-[#18342a] font-bold flex items-center gap-1.5 cursor-pointer shadow-xs">
+      <a href="knowledge-base.html" id="navBtnKb" class="transition-all px-3 py-1.5 rounded-full border border-[#cce1d5] bg-[#e5efe9] text-[#18342a] font-bold flex items-center gap-1.5 cursor-pointer shadow-xs">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         <span>Knowledge Base</span>
       </a>
@@ -1373,7 +1369,18 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeInspectModal();
     });
-  </script>
+  
+    function logout(e) {
+      if (e) e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
 
+    if (!localStorage.getItem('isLoggedIn') && !sessionStorage.getItem('isLoggedIn')) {
+      localStorage.setItem('isLoggedIn', 'true');
+      sessionStorage.setItem('isLoggedIn', 'true');
+    }
+  </script>
 </body>
 </html>
